@@ -256,9 +256,6 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testClear() {
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getTail(), nodeFive);
-		assertEquals(listTwo.size(), 3);
 		listTwo.clear();
 		assertNull(listTwo.getHead());
 		assertNull(listTwo.getTail());
@@ -270,11 +267,7 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testAddIntE() {
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getTail(), nodeFive);
-		assertEquals(listTwo.size(), 3);
-		
-		listTwo.add(1, element);
+		boolean returnVar = listTwo.add(1, element);
 		
 		MyDLLNode<E> tempNode = (MyDLLNode<E>)listTwo.getNode(1);
 		
@@ -288,6 +281,8 @@ class MyDLLTests<E> {
 		assertSame(tempNode, nodeThree.getNextNode());
 		assertSame(tempNode, nodeFour.getPrevNode());
 		
+		assertTrue(returnVar);
+		
 	}
 	
 	/**
@@ -295,11 +290,7 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testAddIntEEmpty() {
-		assertNull(listFour.getHead());
-		assertNull(listFour.getTail());
-		assertEquals(listFour.size(), 0);
-		
-		listFour.add(0, element);
+		boolean returnVar = listFour.add(0, element);
 		
 		MyDLLNode<E> tempNode = listFour.getHead();
 		
@@ -308,6 +299,7 @@ class MyDLLTests<E> {
 		assertNull(tempNode.getNextNode());
 		assertNull(tempNode.getPrevNode());
 		assertEquals(listFour.size(), 1);
+		assertTrue(returnVar);
 	}
 	
 	/**
@@ -315,11 +307,7 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testAddIntEHead() {
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getTail(), nodeFive);
-		assertEquals(listTwo.size(), 3);
-		
-		listTwo.add(0, element);
+		boolean returnVar = listTwo.add(0, element);
 		
 		MyDLLNode<E> tempNode = listTwo.getHead();
 		
@@ -328,6 +316,7 @@ class MyDLLTests<E> {
 		assertSame(tempNode.getNextNode(), nodeThree);
 		assertSame(tempNode, nodeThree.getPrevNode());
 		assertEquals(listTwo.size(), 4);
+		assertTrue(returnVar);
 	}
 
 	/**
@@ -335,11 +324,7 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testAddIntETail() {
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getTail(), nodeFive);
-		assertEquals(listTwo.size(), 3);
-		
-		listTwo.add(2, element);
+		boolean returnVar = listTwo.add(3, element);
 		
 		MyDLLNode<E> tempNode = listTwo.getTail();
 		
@@ -348,6 +333,7 @@ class MyDLLTests<E> {
 		assertSame(tempNode.getPrevNode(), nodeFive);
 		assertNull(tempNode.getNextNode());
 		assertEquals(listTwo.size(), 4);
+		assertTrue(returnVar);
 	}
 	
 	/**
@@ -357,6 +343,13 @@ class MyDLLTests<E> {
 	void testAddIntEFailOOB() {
 		try {
 			listTwo.add(4, element);
+			fail("Failed this test");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+		
+		try {
+			listTwo.add(-1, element);
 			fail("Failed this test");
 		} catch (IndexOutOfBoundsException e) {
 			assertTrue(true);
@@ -381,15 +374,55 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testAddE() {
-		fail("Not yet implemented");
+		boolean returnVar = listTwo.add(element);
+		
+		MyDLLNode<E> tempNode = listTwo.getTail();
+		
+		assertSame(tempNode.getElement(), element);
+		assertSame(listTwo.getHead(), nodeThree);
+		assertSame(tempNode.getPrevNode(), nodeFive);
+		assertNull(tempNode.getNextNode());
+		assertEquals(listTwo.size(), 4);
+		assertTrue(returnVar);
 	}
 
+	/**
+	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 */
+	@Test
+	void testAddEFailNull() {
+		try {
+			listTwo.add(null);
+			fail("Failed this test");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
+	}
+	
 	/**
 	 * Test method for {@link main.MyDLL#addAll(utilities.ListADT)}.
 	 */
 	@Test
 	void testAddAll() {
-		fail("Not yet implemented");
+		boolean returnVar = listOne.addAll(listTwo);
+		
+		assertSame(listOne.getHead(), nodeOne);
+		assertEquals(listOne.getTail().getElement(), listTwo.getTail().getElement());
+		assertEquals(listOne.size(), 4);
+		assertTrue(returnVar);
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 */
+	@Test
+	void testAddAllFailNull() {
+		try {
+			listOne.addAll(null);
+			fail("Failed this test");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
@@ -397,25 +430,204 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testGet() {
-		fail("Not yet implemented");
+		assertEquals("String 3", listTwo.get(0));
+		assertEquals("String 4", listTwo.get(1));
+		assertEquals("String 5", listTwo.get(2));
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 */
+	@Test
+	void testGetFailOOB() {
+		try {
+			listOne.get(1);
+			fail("Failed this test");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+		
+		try {
+			listOne.get(-1);
+			fail("Failed this test");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#get(int)}.
+	 */
+	@Test
+	void testGetNode() {
+		assertEquals(nodeThree, listTwo.getNode(0));
+		assertEquals(nodeFour, listTwo.getNode(1));
+		assertEquals(nodeFive, listTwo.getNode(2));
+	}
+
+	/**
+	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 */
+	@Test
+	void testGetNodeFailOOB() {
+		try {
+			listOne.getNode(1);
+			fail("Failed this test");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+		
+		try {
+			listOne.getNode(-1);
+			fail("Failed this test");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#remove(int)}.
+	 */
+	@Test
+	void testRemoveIntOneEle() {	
+		String returnVar = (String)listOne.remove(0);
+		
+		assertNull(listOne.getHead());
+		assertNull(listOne.getTail());
+		assertEquals(listOne.size(), 0);
+		assertEquals(returnVar, "String 1");
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#remove(int)}.
+	 */
+	@Test
+	void testRemoveInt() {	
+		String returnVar = (String)listTwo.remove(1);
+		
+		assertSame(listTwo.getHead(), nodeThree);
+		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(listTwo.size(), 2);
+		assertEquals(returnVar, "String 4");
 	}
 
 	/**
 	 * Test method for {@link main.MyDLL#remove(int)}.
 	 */
 	@Test
-	void testRemoveInt() {
-		fail("Not yet implemented");
+	void testRemoveIntHead() {
+		String returnVar = (String)listTwo.remove(0);
+		
+		assertSame(listTwo.getHead(), nodeFour);
+		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(listTwo.size(), 2);
+		assertEquals(returnVar, "String 3");
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#remove(int)}.
+	 */
+	@Test
+	void testRemoveIntTail() {
+		String returnVar = (String)listTwo.remove(2);
+		
+		assertSame(listTwo.getHead(), nodeThree);
+		assertSame(listTwo.getTail(), nodeFour);
+		assertEquals(listTwo.size(), 2);
+		assertEquals(returnVar, "String 5");
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveIntFailOOB() {
+		try {
+			listOne.remove(1);
+			fail("Failed this test");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+		
+		try {
+			listOne.remove(-1);
+			fail("Failed this test");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveE() {
+		String returnVar = (String)listTwo.remove((E)"String 4");
+		
+		assertSame(listTwo.getHead(), nodeThree);
+		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(2, listTwo.size());
+		assertEquals(returnVar, "String 4");
+		
 	}
 
 	/**
 	 * Test method for {@link main.MyDLL#remove(java.lang.Object)}.
 	 */
 	@Test
-	void testRemoveE() {
-		fail("Not yet implemented");
+	void testRemoveEHead() {
+		String returnVar = (String)listTwo.remove((E)"String 3");
+		
+		assertSame(listTwo.getHead(), nodeFour);
+		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(2, listTwo.size());
+		assertEquals(returnVar, "String 3");
+		
 	}
-
+	
+	/**
+	 * Test method for {@link main.MyDLL#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveETail() {
+		String returnVar = (String)listTwo.remove((E)"String 5");
+		
+		System.out.println(returnVar);
+		assertSame(listTwo.getHead(), nodeThree);
+		assertSame(listTwo.getTail(), nodeFour);
+		assertEquals(2, listTwo.size());
+		assertEquals(returnVar, "String 5");
+		
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveEInexistant() {
+		String returnVar = (String)listTwo.remove((E)"String x");
+		
+		System.out.println(returnVar);
+		assertSame(listTwo.getHead(), nodeThree);
+		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(3, listTwo.size());
+		assertNull(returnVar);
+		
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveEFailNull() {
+		try {
+			listOne.remove(null);
+			fail("Failed this test");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
+	}
+	
 	/**
 	 * Test method for {@link main.MyDLL#set(int, java.lang.Object)}.
 	 */

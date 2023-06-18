@@ -233,15 +233,20 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		
 		MyDLLNode<E> removedNode;
 		
-		if(index == 0) {
+		if(index == 0 && count > 1) {
 			removedNode = head;
 			head = head.getNextNode();
 			head.setPrevNode(null);
-		} else if (index == count - 1) {
+		} else if (index == count - 1 && count > 1) {
 			removedNode = tail;
 			tail = tail.getPrevNode();
 			tail.setNextNode(null);
-		} else {
+		} else if ((index == 0 || index == count - 1) && count == 1) {
+			removedNode = head;
+			this.clear();
+			return removedNode.getElement();
+		}
+		else {
 			removedNode = this.getNode(index);
 			MyDLLNode<E> prevNode = removedNode.getPrevNode();
 			MyDLLNode<E> nextNode = removedNode.getNextNode();
@@ -267,6 +272,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 			if(removedNode.getElement() == toRemove) {
 				return this.remove(index);
 			} else {
+				removedNode = removedNode.getNextNode();
 				index++;
 			}
 		}
