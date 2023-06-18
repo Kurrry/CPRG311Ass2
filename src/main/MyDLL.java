@@ -22,17 +22,18 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		count = 1;
 		
 		MyDLLNode<E> currentNode = head;
-		MyDLLNode<E> nextNode = currentNode.getNextNode();
-		while(nextNode != null) {
-			currentNode = nextNode;
+		MyDLLNode<E> nextNodeLoc = currentNode.getNextNode();
+		while(nextNodeLoc != null) {
+			currentNode = nextNodeLoc;
 			count++;
-			nextNode = nextNode.getNextNode();
+			nextNodeLoc = nextNodeLoc.getNextNode();
 		}
 		this.tail = currentNode;
 	}
 	
 	public MyDLL(MyDLLNode<E> head, MyDLLNode<E> tail) {
 		this.head = head;
+		nextNode = head;
 		this.tail = tail;
 		count = 1;
 		
