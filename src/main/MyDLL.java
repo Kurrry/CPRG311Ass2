@@ -16,6 +16,13 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	
 	
 	
+	public MyDLL() {
+		this.head = null;
+		this.tail = null;
+		nextNode = null;
+		count = 0;
+	}
+	
 	public MyDLL(MyDLLNode<E> head) {
 		this.head = head;
 		nextNode = head;
@@ -43,9 +50,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 			count++;
 		}	
 	}
-	
-	
-	
+
 	/**
 	 * @return the head
 	 */
@@ -129,7 +134,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public boolean add(int index, E toAdd) throws NullPointerException, IndexOutOfBoundsException {
-		if(index < 0 || index >= count) {
+		if(index < 0 || index > count) {
 			throw new IndexOutOfBoundsException();
 		} else if(toAdd == null) {
 			throw new NullPointerException();
@@ -146,7 +151,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 			head.setPrevNode(newNode);
 			head = newNode;
 			count++;
-		} else if (index == count - 1) {
+		} else if (index == count) {
 			add(toAdd);
 		} else {
 			MyDLLNode<E> currentNode = this.getNode(index);
