@@ -25,7 +25,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		MyDLLNode<E> nextNode = currentNode.getNextNode();
 		while(nextNode != null) {
 			currentNode = nextNode;
-			count += 1;
+			count++;
 			nextNode = nextNode.getNextNode();
 		}
 		this.tail = currentNode;
@@ -39,7 +39,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		MyDLLNode<E> currentNode = head;
 		while(currentNode != tail) {
 			currentNode = currentNode.getNextNode();
-			count += 1;
+			count++;
 		}	
 	}
 	
@@ -122,10 +122,10 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	public void clear() {
 		head = null;
 		tail = null;
+		nextNode = null;
 		count = 0;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean add(int index, E toAdd) throws NullPointerException, IndexOutOfBoundsException {
 		if(index < 0 || index >= count) {
@@ -148,7 +148,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		} else if (index == count - 1) {
 			add(toAdd);
 		} else {
-			MyDLLNode<E> currentNode = (MyDLLNode<E>)this.get(index);
+			MyDLLNode<E> currentNode = this.getNode(index);
 			new MyDLLNode<E>(toAdd, currentNode.getPrevNode(), currentNode);
 			count++;
 		}
@@ -171,28 +171,28 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		}
 		
 		tail = newNode;
-		count += 1;
+		count++;
 		return true;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public boolean addAll(ListADT<? extends E> toAdd) throws NullPointerException {
 		if(toAdd == null) {
 			throw new NullPointerException();
 		}
 		
-		toAdd = (MyDLL<E>)toAdd;
-		
-		tail.setNextNode((MyDLLNode<E>)toAdd.get(0));
-		tail = (MyDLLNode<E>)toAdd.get(toAdd.size()-1);
+		for(int i = 0; i < toAdd.size(); i++) {
+			MyDLLNode<E> newNode = new MyDLLNode<E>(toAdd.get(i));
+			tail.setNextNode(newNode);
+			newNode.setPrevNode(tail);
+			tail = newNode;
+		}
 		count += toAdd.size();
 		
 		return true;
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
 		if(index < 0 || index >= count) {
@@ -203,10 +203,22 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		for(int i = 0; i < index; i++) {
 			currentNode = currentNode.getNextNode();
 		}
-		return (E)currentNode;
+		return currentNode.getElement();
+	}
+	
+	public MyDLLNode<E> getNode(int index) throws IndexOutOfBoundsException {
+		if(index < 0 || index >= count) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		MyDLLNode<E> currentNode = head;
+		for(int i = 0; i < index; i++) {
+			currentNode = currentNode.getNextNode();
+		}
+		return currentNode;
 	}
 
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public E remove(int index) throws IndexOutOfBoundsException {
 		if(index < 0 || index >= count) {
@@ -224,7 +236,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 			tail = tail.getPrevNode();
 			tail.setNextNode(null);
 		} else {
-			removedNode = (MyDLLNode<E>)this.get(index);
+			removedNode = this.getNode(index);
 			MyDLLNode<E> prevNode = removedNode.getPrevNode();
 			MyDLLNode<E> nextNode = removedNode.getNextNode();
 			prevNode.setNextNode(nextNode);
@@ -234,7 +246,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		count--;
 		removedNode.setNextNode(null);
 		removedNode.setPrevNode(null);
-		return (E) removedNode;
+		return removedNode.getElement();
 	}
 
 	@Override
@@ -249,13 +261,12 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 			if(removedNode.getElement() == toRemove) {
 				return this.remove(index);
 			} else {
-				index += 1;
+				index++;
 			}
 		}
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public E set(int index, E toChange) throws NullPointerException, IndexOutOfBoundsException {
 		if(index < 0 || index >= count) {
@@ -263,7 +274,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		} else if(toChange == null) {
 			throw new NullPointerException();
 		}
-		MyDLLNode<E> currentNode = (MyDLLNode<E>)this.get(index);
+		MyDLLNode<E> currentNode = this.getNode(index);
 		E oldElement = (E)currentNode.getElement();
 		currentNode.setElement(toChange);
 		
