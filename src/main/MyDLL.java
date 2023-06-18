@@ -11,14 +11,14 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private MyDLLNode<E> head, tail;
+	private MyDLLNode<E> head, tail, nextNode;
 	private int count;
-	private int current = 0;
 	
 	
 	
 	public MyDLL(MyDLLNode<E> head) {
 		this.head = head;
+		nextNode = head;
 		count = 1;
 		
 		MyDLLNode<E> currentNode = head;
@@ -97,17 +97,19 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public boolean hasNext() {
-		return count - current > 1;
+		return nextNode.getNextNode() != null;
 	}
 
 	@Override
 	public E next() throws NoSuchElementException {
-		if(!hasNext()) {
+		E result;
+		if (hasNext()) {
+			nextNode = nextNode.getNextNode();
+			result = (E) nextNode.getElement();
+		} else {
 			throw new NoSuchElementException();
 		}
-		current += 1;
-		E e = (E)this.get(current);
-		return e;
+		return result;
 	}
 
 	@Override
@@ -173,23 +175,21 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean addAll(ListADT<? extends E> toAdd) throws NullPointerException {
 		if(toAdd == null) {
 			throw new NullPointerException();
 		}
-		MyDLLNode<E> currentNode;
-		MyDLLNode<E> prevNode = tail;
 		
-		// Change to FOR EACH?
-		for(int i = 0; i < toAdd.size(); i++) {
-			currentNode = new MyDLLNode<E>(toAdd.get(i));
-			currentNode.setPrevNode(prevNode);
-			tail = currentNode;
-			prevNode.setNextNode(currentNode);
-			prevNode = currentNode;
-		}
+		toAdd = (MyDLL<E>)toAdd;
+		
+		tail.setNextNode((MyDLLNode<E>)toAdd.get(0));
+		tail = (MyDLLNode<E>)toAdd.get(toAdd.size()-1);
+		count += toAdd.size();
+		
 		return true;
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -351,8 +351,8 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		public E next() throws NoSuchElementException {
 			E result;
 			if (hasNext()) {
-				result = (E) nextNode.getElement();
 				nextNode = nextNode.getNextNode();
+				result = (E) nextNode.getElement();
 			} else {
 				throw new NoSuchElementException();
 			}
