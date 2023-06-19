@@ -73,11 +73,16 @@ class MyDLLTests<E> {
 		nodeFive.setPrevNode(null);
 		
 		// Reset lists
+		listOne.clear();
+		listTwo.clear();
+		listThree.clear();
+		listFour.clear();
 		
 		element = null;
 		
 		arrayOne = null;
 		arrayTwo = null;
+		
 		it = null;
 	}
 
@@ -96,15 +101,6 @@ class MyDLLTests<E> {
 		assertNull(nodeOne.getNextNode());
 		assertNull(nodeOne.getPrevNode());
 	}
-
-	/**
-	 * Test method for {@link main.MyDLLNode#getNextNode()}.
-	 */
-	@Test
-	void testGetSetNextNode() {
-		nodeOne.setNextNode(nodeTwo);
-		assertSame(nodeTwo, nodeOne.getNextNode());
-	}
 	
 	/**
 	 * Test method for {@link main.MyDLLNode#MyDLLNode(java.lang.Object, main.MyDLLNode, main.MyDLLNode)}.
@@ -116,6 +112,15 @@ class MyDLLTests<E> {
 		assertSame(nodeFive, nodeFour.getNextNode());
 		assertSame(nodeFour, nodeThree.getNextNode());
 		assertSame(nodeFour, nodeFive.getPrevNode());
+	}
+
+	/**
+	 * Test method for {@link main.MyDLLNode#getNextNode()}.
+	 */
+	@Test
+	void testGetSetNextNode() {
+		nodeOne.setNextNode(nodeTwo);
+		assertSame(nodeTwo, nodeOne.getNextNode());
 	}
 
 	/**
@@ -140,8 +145,8 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testSetElement() {
-		nodeOne.setElement((E)"String 1 changed");
-		assertEquals("String 1 changed", nodeOne.getElement());
+		nodeOne.setElement(element);
+		assertEquals(element, nodeOne.getElement());
 	}
 	
 	
@@ -191,7 +196,7 @@ class MyDLLTests<E> {
 	@Test
 	void testGetSetHead() {
 		assertSame(listOne.getHead(), nodeOne);
-		assertSame(listOne.getHead(), nodeTwo);
+		assertSame(listTwo.getHead(), nodeThree);
 	}
 
 	/**
@@ -200,7 +205,7 @@ class MyDLLTests<E> {
 	@Test
 	void testGetSetTail() {
 		assertSame(listOne.getTail(), nodeOne);
-		assertSame(listOne.getTail(), nodeTwo);
+		assertSame(listTwo.getTail(), nodeFive);
 	}
 
 	/**
@@ -211,7 +216,7 @@ class MyDLLTests<E> {
 		assertEquals(listOne.size(), 1);
 		assertEquals(listTwo.size(), 3);
 		assertEquals(listThree.size(), 2);
-		assertEquals(listThree.size(), 4);
+		assertEquals(listFour.size(), 0);
 	}
 
 	/**
