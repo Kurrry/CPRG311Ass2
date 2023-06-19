@@ -73,18 +73,6 @@ class MyDLLTests<E> {
 		nodeFive.setPrevNode(null);
 		
 		// Reset lists
-		listOne.setHead(null);
-		listOne.setTail(null);
-		listOne.setCount(0);
-		listTwo.setHead(null);
-		listTwo.setTail(null);
-		listTwo.setCount(0);
-		listThree.setHead(null);
-		listThree.setTail(null);
-		listThree.setCount(0);
-		listFour.setHead(null);
-		listFour.setTail(null);
-		listFour.setCount(0);
 		
 		element = null;
 		
@@ -170,7 +158,7 @@ class MyDLLTests<E> {
 	void testMyDLL() {
 		assertNull(listFour.getHead());
 		assertNull(listFour.getTail());
-		assertEquals(listFour.getCount(), 0);
+		assertEquals(listFour.size(), 0);
 	}
 	
 	/**
@@ -180,11 +168,11 @@ class MyDLLTests<E> {
 	void testMyDLLMyDLLNodeOfE() {
 		assertSame(listOne.getHead(), nodeOne);
 		assertSame(listOne.getTail(), nodeOne);
-		assertEquals(listOne.getCount(), 1);
+		assertEquals(listOne.size(), 1);
 		
 		assertSame(listTwo.getHead(), nodeThree);
 		assertSame(listTwo.getTail(), nodeFive);
-		assertEquals(listTwo.getCount(), 3);
+		assertEquals(listTwo.size(), 3);
 	}
 		
 	/**
@@ -194,7 +182,7 @@ class MyDLLTests<E> {
 	void testMyDLLMyDLLNodeOfEMyDLLNodeOfE() {
 		assertSame(listThree.getHead(), nodeThree);
 		assertSame(listThree.getTail(), nodeFour);
-		assertEquals(listThree.getCount(), 2);
+		assertEquals(listThree.size(), 2);
 	}
 
 	/**
@@ -203,7 +191,6 @@ class MyDLLTests<E> {
 	@Test
 	void testGetSetHead() {
 		assertSame(listOne.getHead(), nodeOne);
-		listOne.setHead(nodeTwo);
 		assertSame(listOne.getHead(), nodeTwo);
 	}
 
@@ -213,20 +200,18 @@ class MyDLLTests<E> {
 	@Test
 	void testGetSetTail() {
 		assertSame(listOne.getTail(), nodeOne);
-		listOne.setTail(nodeTwo);
 		assertSame(listOne.getTail(), nodeTwo);
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#getCount()}.
+	 * Test method for {@link MyDLL#size()}.
 	 */
 	@Test
 	void testGetSetCount() {
-		assertEquals(listOne.getCount(), 1);
-		assertEquals(listTwo.getCount(), 3);
-		assertEquals(listThree.getCount(), 2);
-		listThree.setCount(4);
-		assertEquals(listThree.getCount(), 4);
+		assertEquals(listOne.size(), 1);
+		assertEquals(listTwo.size(), 3);
+		assertEquals(listThree.size(), 2);
+		assertEquals(listThree.size(), 4);
 	}
 
 	/**

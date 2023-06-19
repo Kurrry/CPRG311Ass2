@@ -1,7 +1,6 @@
 package utilities;
 
 import exceptions.EmptyQueueException;
-import java.util.Iterator;
 
 /**
  * Queue interface.

@@ -58,15 +58,6 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		return head;
 	}
 
-
-	/**
-	 * @param head the head to set
-	 */
-	public void setHead(MyDLLNode<E> head) {
-		this.head = head;
-	}
-
-
 	/**
 	 * @return the tail
 	 */
@@ -74,32 +65,6 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		return tail;
 	}
 
-
-	/**
-	 * @param tail the tail to set
-	 */
-	public void setTail(MyDLLNode<E> tail) {
-		this.tail = tail;
-	}
-
-
-	/**
-	 * @return the count
-	 */
-	public int getCount() {
-		return count;
-	}
-
-
-	/**
-	 * @param count the count to set
-	 */
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-	
-	
 
 	@Override
 	public boolean hasNext() {
@@ -120,8 +85,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return getCount();
+		return count;
 	}
 
 	@Override
