@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import main.MyDLL;
 import main.MyDLLNode;
+import utilities.Iterator;
+
 import java.util.NoSuchElementException;
 
 /**
@@ -22,6 +24,8 @@ class MyDLLTests<E> {
 	MyDLLNode<E> nodeOne, nodeTwo, nodeThree, nodeFour, nodeFive;
 	MyDLL<E> listOne, listTwo, listThree, listFour;
 	E element;
+	Object[] arrayOne, arrayTwo;
+	Iterator<E> it;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -41,6 +45,9 @@ class MyDLLTests<E> {
 		listFour = new MyDLL<E>();
 		
 		element = (E)"Info to add/change";
+		
+		arrayOne = (E[])new Object[3];
+		arrayTwo = (E[])new Object[1];
 	}
 		
 	/**
@@ -81,6 +88,9 @@ class MyDLLTests<E> {
 		
 		element = null;
 		
+		arrayOne = null;
+		arrayTwo = null;
+		it = null;
 	}
 
 	
@@ -173,7 +183,7 @@ class MyDLLTests<E> {
 		assertEquals(listOne.getCount(), 1);
 		
 		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getHead(), nodeFive);
+		assertSame(listTwo.getTail(), nodeFive);
 		assertEquals(listTwo.getCount(), 3);
 	}
 		
@@ -239,7 +249,7 @@ class MyDLLTests<E> {
 		} catch (NoSuchElementException e) {
 			assertTrue(true);
 		}
-		assertSame(nodeFour, listTwo.next());
+		assertSame(nodeFour.getElement(), listTwo.next());
 	}
 
 	/**
@@ -592,7 +602,6 @@ class MyDLLTests<E> {
 	void testRemoveETail() {
 		String returnVar = (String)listTwo.remove((E)"String 5");
 		
-		System.out.println(returnVar);
 		assertSame(listTwo.getHead(), nodeThree);
 		assertSame(listTwo.getTail(), nodeFour);
 		assertEquals(2, listTwo.size());
@@ -605,9 +614,8 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testRemoveEInexistant() {
-		String returnVar = (String)listTwo.remove((E)"String x");
+		String returnVar = (String)listTwo.remove(element);
 		
-		System.out.println(returnVar);
 		assertSame(listTwo.getHead(), nodeThree);
 		assertSame(listTwo.getTail(), nodeFive);
 		assertEquals(3, listTwo.size());
@@ -633,7 +641,66 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testSet() {
-		fail("Not yet implemented");
+		String returnVal = (String)listTwo.set(1, element);
+		
+		assertEquals(element, listTwo.get(1));
+		assertEquals(returnVal, "String 4");
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#set(int, java.lang.Object)}.
+	 */
+	@Test
+	void testSetHead() {
+		String returnVal = (String)listTwo.set(0, element);
+		
+		assertEquals(element, listTwo.getHead().getElement());
+		assertEquals(returnVal, "String 3");
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#set(int, java.lang.Object)}.
+	 */
+	@Test
+	void testSetTail() {
+		String returnVal = (String)listTwo.set(2, element);
+		
+		assertEquals(element, listTwo.getTail().getElement());
+		assertEquals(returnVal, "String 5");
+		
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 */
+	@Test
+	void testSetFailNull() {
+		try {
+			listOne.set(0, null);
+			fail("Failed this test");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 */
+	@Test
+	void testSetFailOOB() {
+		try {
+			listOne.set(1, element);
+			fail("Failed this test");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
+		
+		try {
+			listOne.set(-1, element);
+			fail("Failed this test");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
@@ -641,7 +708,9 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testIsEmpty() {
-		fail("Not yet implemented");
+		assertFalse(listOne.isEmpty());
+		listOne.clear();
+		assertTrue(listOne.isEmpty());
 	}
 
 	/**
@@ -649,15 +718,57 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testContains() {
-		fail("Not yet implemented");
+		assertTrue(listOne.contains((E)"String 1"));
+		assertTrue(listTwo.contains((E)"String 5"));
+		assertFalse(listOne.contains(element));
 	}
 
+	/**
+	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 */
+	@Test
+	void testContainsFailNull() {
+		try {
+			listOne.contains(null);
+			fail("Failed this test");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
+	}
+	
 	/**
 	 * Test method for {@link main.MyDLL#toArray(E[])}.
 	 */
 	@Test
 	void testToArrayEArray() {
-		fail("Not yet implemented");
+		arrayOne = listTwo.toArray((E[]) arrayOne);
+		assertEquals(listTwo.getHead().getElement(), arrayOne[0]);
+		assertEquals(listTwo.getTail().getElement(), arrayOne[2]);	
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#toArray(E[])}.
+	 */
+	@Test
+	void testToArrayEArraySmallArr() {
+		assertEquals(arrayTwo.length, 1);
+		arrayTwo = listTwo.toArray((E[]) arrayTwo);
+		assertEquals(listTwo.getHead().getElement(), arrayTwo[0]);
+		assertEquals(listTwo.getTail().getElement(), arrayTwo[2]);	
+		assertEquals(arrayTwo.length, 3);
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 */
+	@Test
+	void testToArrayEArrayFailNull() {
+		try {
+			listOne.toArray(null);
+			fail("Failed this test");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
@@ -665,7 +776,11 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testToArray() {
-		fail("Not yet implemented");
+		Object[] newArr = listTwo.toArray();
+		
+		assertEquals(listTwo.getHead().getElement(), newArr[0]);
+		assertEquals(listTwo.getTail().getElement(), newArr[2]);	
+		assertEquals(newArr.length, 3);
 	}
 
 	/**
@@ -673,15 +788,32 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testIterator() {
-		fail("Not yet implemented");
+		it = listTwo.iterator();
+		assertEquals(listTwo.next(), it.next());
+		assertEquals(listTwo.next(), it.next());
+		assertFalse(listTwo.hasNext());
+		assertFalse(it.hasNext());
 	}
+	
+	/**
+	 * Test method for {@link java.lang.Object#toString()}.
+	 */
+	@Test
+	void testToStringNode() {
+		String checkString = "String 1";
+		String returnString = nodeOne.toString();
+		assertEquals(checkString, returnString);
+	}
+	
 
 	/**
 	 * Test method for {@link java.lang.Object#toString()}.
 	 */
 	@Test
 	void testToString() {
-		fail("Not yet implemented");
+		String checkString = "String 3 String 4 String 5";
+		String returnString = listTwo.toString();
+		assertEquals(checkString, returnString);
 	}
 
 }

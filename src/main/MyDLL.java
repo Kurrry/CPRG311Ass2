@@ -295,7 +295,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public boolean isEmpty() {
-		if (count == 0 && head == null && tail == null) {
+		if (count == 0 && head == null && tail == null && nextNode == null) {
 			return true;
 		} else {
 			return false;
@@ -359,29 +359,39 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 
 	private class IteratorForDLL implements Iterator<E> {
 
-		private MyDLLNode<E> nextNode;
+		private MyDLLNode<E> nextNodeIt;
 		
 		private IteratorForDLL() {
-			nextNode = head;
+			nextNodeIt = head;
 		}
 		
 		@Override
 		public boolean hasNext() {
-			return nextNode != null;
+			return nextNodeIt.getNextNode() != null;
 		}
 
 		@Override
 		public E next() throws NoSuchElementException {
 			E result;
 			if (hasNext()) {
-				nextNode = nextNode.getNextNode();
-				result = (E) nextNode.getElement();
+				nextNodeIt = nextNodeIt.getNextNode();
+				result = (E) nextNodeIt.getElement();
 			} else {
 				throw new NoSuchElementException();
 			}
 			return result;
 		}
 		
+	}
+	
+	@Override
+	public String toString() {
+		Iterator<E> it = this.iterator();
+		String returnStr = head.toString();
+		while(it.hasNext()) {
+			returnStr += " " + it.next();
+		}
+		return returnStr;
 	}
 	
 }
