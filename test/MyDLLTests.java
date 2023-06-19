@@ -194,7 +194,7 @@ class MyDLLTests<E> {
 	 * Test method for {@link main.MyDLL#getHead()}.
 	 */
 	@Test
-	void testGetSetHead() {
+	void testGetHead() {
 		assertSame(listOne.getHead(), nodeOne);
 		assertSame(listTwo.getHead(), nodeThree);
 	}
@@ -203,20 +203,9 @@ class MyDLLTests<E> {
 	 * Test method for {@link main.MyDLL#getTail()}.
 	 */
 	@Test
-	void testGetSetTail() {
+	void testGetTail() {
 		assertSame(listOne.getTail(), nodeOne);
 		assertSame(listTwo.getTail(), nodeFive);
-	}
-
-	/**
-	 * Test method for {@link MyDLL#size()}.
-	 */
-	@Test
-	void testGetSetCount() {
-		assertEquals(listOne.size(), 1);
-		assertEquals(listTwo.size(), 3);
-		assertEquals(listThree.size(), 2);
-		assertEquals(listFour.size(), 0);
 	}
 
 	/**
@@ -249,6 +238,8 @@ class MyDLLTests<E> {
 	void testSize() {
 		assertEquals(listOne.size(), 1);
 		assertEquals(listTwo.size(), 3);
+		assertEquals(listThree.size(), 2);
+		assertEquals(listFour.size(), 0);
 	}
 
 	/**
@@ -568,6 +559,20 @@ class MyDLLTests<E> {
 		assertSame(listTwo.getTail(), nodeFive);
 		assertEquals(2, listTwo.size());
 		assertEquals(returnVar, "String 4");
+		
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveEOneEle() {
+		String returnVar = (String)listOne.remove((E)"String 1");
+		
+		assertNull(listOne.getHead());
+		assertNull(listOne.getTail());
+		assertEquals(0, listOne.size());
+		assertEquals(returnVar, "String 1");
 		
 	}
 
