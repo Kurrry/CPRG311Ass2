@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
  */
 class MyDLLTests<E> {
 	
-	MyDLLNode<E> nodeOne, nodeTwo, nodeThree, nodeFour, nodeFive;
+	MyDLLNode<E> nodeOne, nodeTwo, nodeThree, nodeFour, nodeFive, nodeSix;
 	MyDLL<E> listOne, listTwo, listThree, listFour;
 	E element;
 	Object[] arrayOne, arrayTwo;
@@ -38,6 +38,8 @@ class MyDLLTests<E> {
 		nodeThree = new MyDLLNode<E>((E)"String 3");
 		nodeFive = new MyDLLNode<E>((E)"String 5");
 		nodeFour = new MyDLLNode<E>((E)"String 4", nodeThree, nodeFive);
+		
+		nodeSix = new MyDLLNode<E>();
 		
 		listOne = new MyDLL<E>(nodeOne);
 		listTwo = new MyDLL<E>(nodeThree);
@@ -91,6 +93,16 @@ class MyDLLTests<E> {
 	
 	
 	// Tests for MyDLLNode
+	
+	/**
+	 * Test method for {@link main.MyDLLNode#MyDLLNode(java.lang.Object)}.
+	 */
+	@Test
+	void testMyDLLNode() {
+		assertNull(nodeSix.getElement());
+		assertNull(nodeSix.getNextNode());
+		assertNull(nodeSix.getPrevNode());
+	}
 	
 	/**
 	 * Test method for {@link main.MyDLLNode#MyDLLNode(java.lang.Object)}.
