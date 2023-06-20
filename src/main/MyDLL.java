@@ -298,7 +298,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	public E[] toArray(E[] toHold) throws NullPointerException {
 		if(toHold == null) {
 			throw new NullPointerException();
-		} else if(count < toHold.length) {
+		} else if(count > toHold.length) {
 			toHold = (E[])new Object[count];
 		}
 		Iterator<E> it = this.iterator();

@@ -75,7 +75,7 @@ public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
         if(copy == null || copy.length == 0 || this.isEmpty()) {
             throw new NullPointerException();
         }
-        if (this.size() < copy.length) {
+        if (this.size() > copy.length) {
             copy = (E[]) new Object[this.size()];
         }
         MyDLLNode<E> current = this.getHead();
@@ -121,7 +121,12 @@ public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
 
     @Override
     public String toString() {
-        return super.toString();
+        //Iterator<E> it = this.iterator();
+        StringBuilder returnStr = new StringBuilder(this.next().toString());
+        while(this.hasNext()) {
+            returnStr.append(" ").append(this.next().toString());
+        }
+        return returnStr.toString();
     }
 
     private class QueueIterator implements Iterator<E> {
