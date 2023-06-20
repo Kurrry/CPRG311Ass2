@@ -5,6 +5,9 @@ public class MyDLLNode<E> {
 	private MyDLLNode<E> nextNode, prevNode;
 	private E element;
 	
+	public MyDLLNode() {
+	}
+	
 	public MyDLLNode(E element) {
 		this.element = element;
 	}

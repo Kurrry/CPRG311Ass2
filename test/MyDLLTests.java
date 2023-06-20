@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
  */
 class MyDLLTests<E> {
 	
-	MyDLLNode<E> nodeOne, nodeTwo, nodeThree, nodeFour, nodeFive;
+	MyDLLNode<E> nodeOne, nodeTwo, nodeThree, nodeFour, nodeFive, nodeSix;
 	MyDLL<E> listOne, listTwo, listThree, listFour;
 	E element;
 	Object[] arrayOne, arrayTwo;
@@ -38,6 +38,8 @@ class MyDLLTests<E> {
 		nodeThree = new MyDLLNode<E>((E)"String 3");
 		nodeFive = new MyDLLNode<E>((E)"String 5");
 		nodeFour = new MyDLLNode<E>((E)"String 4", nodeThree, nodeFive);
+		
+		nodeSix = new MyDLLNode<E>();
 		
 		listOne = new MyDLL<E>(nodeOne);
 		listTwo = new MyDLL<E>(nodeThree);
@@ -91,6 +93,16 @@ class MyDLLTests<E> {
 	
 	
 	// Tests for MyDLLNode
+	
+	/**
+	 * Test method for {@link main.MyDLLNode#MyDLLNode(java.lang.Object)}.
+	 */
+	@Test
+	void testMyDLLNode() {
+		assertNull(nodeSix.getElement());
+		assertNull(nodeSix.getNextNode());
+		assertNull(nodeSix.getPrevNode());
+	}
 	
 	/**
 	 * Test method for {@link main.MyDLLNode#MyDLLNode(java.lang.Object)}.
@@ -213,22 +225,32 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testHasNext() {
-		assertFalse(listOne.hasNext());
-		assertTrue(listThree.hasNext());
+		assertFalse(listFour.hasNext());
+		assertTrue(listTwo.hasNext());
+		assertTrue(listOne.hasNext());
 	}
 
 	/**
 	 * Test method for {@link main.MyDLL#next()}.
 	 */
 	@Test
-	void testNext() {
+	void testNextFailNull() {
 		try {
-			listOne.next();
+			listFour.next();
 			fail("Failed this test");
 		} catch (NoSuchElementException e) {
 			assertTrue(true);
 		}
-		assertSame(nodeFour.getElement(), listTwo.next());
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#next()}.
+	 */
+	@Test
+	void testNext() {
+		E returnEle = listTwo.next();
+		assertEquals(returnEle, listTwo.get(0));
+		assertEquals(returnEle, nodeThree.getElement());
 	}
 
 	/**
@@ -754,6 +776,16 @@ class MyDLLTests<E> {
 	}
 	
 	/**
+	 * Test method for {@link main.MyDLL#toArray(E[])}.
+	 */
+	@Test
+	void testToArrayEArrayNoEle() {
+		arrayOne = listFour.toArray((E[]) arrayOne);
+		assertNull(arrayOne[0]);
+		assertNull(arrayOne[2]);	
+	}
+	
+	/**
 	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
@@ -784,6 +816,7 @@ class MyDLLTests<E> {
 	@Test
 	void testIterator() {
 		it = listTwo.iterator();
+		assertEquals(listTwo.next(), it.next());
 		assertEquals(listTwo.next(), it.next());
 		assertEquals(listTwo.next(), it.next());
 		assertFalse(listTwo.hasNext());

@@ -11,7 +11,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private MyDLLNode<E> head, tail, nextNode;
+	private MyDLLNode<E> head, tail, itNode;
 	private int count;
 	
 	
@@ -19,13 +19,14 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	public MyDLL() {
 		this.head = null;
 		this.tail = null;
-		nextNode = null;
 		count = 0;
+		itNode = new MyDLLNode<E>();
 	}
 	
 	public MyDLL(MyDLLNode<E> head) {
 		this.head = head;
-		nextNode = head;
+		itNode = new MyDLLNode<E>();
+		itNode.setNextNode(head);
 		count = 1;
 		
 		MyDLLNode<E> currentNode = head;
@@ -40,7 +41,8 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	
 	public MyDLL(MyDLLNode<E> head, MyDLLNode<E> tail) {
 		this.head = head;
-		nextNode = head;
+		itNode = new MyDLLNode<E>();
+		itNode.setNextNode(head);
 		this.tail = tail;
 		count = 1;
 		
@@ -68,15 +70,15 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public boolean hasNext() {
-		return nextNode.getNextNode() != null;
+		return itNode.getNextNode() != null;
 	}
 
 	@Override
 	public E next() throws NoSuchElementException {
 		E result;
 		if (hasNext()) {
-			nextNode = nextNode.getNextNode();
-			result = (E) nextNode.getElement();
+			itNode = itNode.getNextNode();
+			result = (E) itNode.getElement();
 		} else {
 			throw new NoSuchElementException();
 		}
@@ -92,7 +94,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	public void clear() {
 		head = null;
 		tail = null;
-		nextNode = null;
+		itNode = null;
 		count = 0;
 	}
 
@@ -108,12 +110,14 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 			MyDLLNode<E> newNode = new MyDLLNode<E>(toAdd);
 			head = newNode;
 			tail = newNode;
+			itNode.setNextNode(head);
 			count++;
 		} else if(index == 0) {
 			MyDLLNode<E> newNode = new MyDLLNode<E>(toAdd);
 			newNode.setNextNode(head);
 			head.setPrevNode(newNode);
 			head = newNode;
+			itNode.setNextNode(head);
 			count++;
 		} else if (index == count) {
 			add(toAdd);
@@ -135,6 +139,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		
 		if(isEmpty()) {
 			head = newNode;
+			itNode.setNextNode(head);
 		} else {
 			newNode.setPrevNode(tail);
 			tail.setNextNode(newNode);
@@ -169,11 +174,13 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 			throw new IndexOutOfBoundsException();
 		}
 		
-		MyDLLNode<E> currentNode = head;
-		for(int i = 0; i < index; i++) {
-			currentNode = currentNode.getNextNode();
+		Iterator<E> it = this.iterator();
+		E returnVal = null;
+		
+		for(int i = -1; i < index; i++) {
+			returnVal = it.next();
 		}
-		return currentNode.getElement();
+		return returnVal;
 	}
 	
 	public MyDLLNode<E> getNode(int index) throws IndexOutOfBoundsException {
@@ -200,6 +207,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		if(index == 0 && count > 1) {
 			removedNode = head;
 			head = head.getNextNode();
+			itNode.setNextNode(head);
 			head.setPrevNode(null);
 		} else if (index == count - 1 && count > 1) {
 			removedNode = tail;
@@ -229,17 +237,19 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		if(toRemove == null) {
 			throw new NullPointerException();
 		}
-		// Change to WHILE LOOP
-		MyDLLNode<E> removedNode = head;
+
 		int index = 0;
-		for(int i = 0; i < count; i++) {
-			if(removedNode.getElement() == toRemove) {
+		E returnVal;
+		Iterator<E> it = this.iterator();
+		while(it.hasNext()) {
+			returnVal = it.next();
+			if(returnVal == toRemove) {
 				return this.remove(index);
 			} else {
-				removedNode = removedNode.getNextNode();
 				index++;
 			}
 		}
+		
 		return null;
 	}
 
@@ -259,7 +269,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public boolean isEmpty() {
-		if (count == 0 && head == null && tail == null && nextNode == null) {
+		if (count == 0 && head == null && tail == null) {
 			return true;
 		} else {
 			return false;
@@ -271,16 +281,15 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		if(toFind == null) {
 			throw new NullPointerException();
 		}
-		
-		// Change to WHILE LOOP
-		MyDLLNode<E> currentNode = head;
-		for(int i = 0; i < count; i++) {
-			if(currentNode.getElement() == toFind) {
+		E checkVal;
+		Iterator<E> it = this.iterator();
+		while(it.hasNext()) {
+			checkVal = it.next();
+			if(checkVal == toFind) {
 				return true;
-			} else {
-				currentNode = currentNode.getNextNode();
 			}
 		}
+		
 		return false;
 	}
 
@@ -292,12 +301,11 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		} else if(count < toHold.length) {
 			toHold = (E[])new Object[count];
 		}
-		
-		// Change to WHILE LOOP
-		MyDLLNode<E> currentNode = head;
-		for(int i = 0; i < count; i++) {
-			toHold[i] = (E) currentNode.getElement();
-			currentNode = currentNode.getNextNode();
+		Iterator<E> it = this.iterator();
+		int index = 0;
+		while(it.hasNext()) {
+			toHold[index] = it.next();
+			index++;
 		}
 		
 		return toHold;
@@ -307,12 +315,13 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	public Object[] toArray() {
 		Object[] arrList = new Object[count];
 		
-		// Change to WHILE LOOP
-		MyDLLNode<E> currentNode = head;
-		for(int i = 0; i < count; i++) {
-			arrList[i] = currentNode.getElement();
-			currentNode = currentNode.getNextNode();
+		Iterator<E> it = this.iterator();
+		int index = 0;
+		while(it.hasNext()) {
+			arrList[index] = it.next();
+			index++;
 		}
+		
 		return arrList;
 	}
 
@@ -326,7 +335,9 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		private MyDLLNode<E> nextNodeIt;
 		
 		private IteratorForDLL() {
-			nextNodeIt = head;
+			
+			nextNodeIt = new MyDLLNode<E>();
+			nextNodeIt.setNextNode(head);
 		}
 		
 		@Override
@@ -351,7 +362,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	@Override
 	public String toString() {
 		Iterator<E> it = this.iterator();
-		String returnStr = head.toString();
+		String returnStr = (String)it.next();
 		while(it.hasNext()) {
 			returnStr += " " + it.next();
 		}
