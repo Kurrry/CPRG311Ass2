@@ -131,7 +131,11 @@ public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
 
     private class QueueIterator implements Iterator<E> {
         private MyDLLNode<E> current;
-        private QueueIterator(MyDLLNode<E> current) {this.current = current;}
+        private QueueIterator(MyDLLNode<E> current) {
+        	
+        	this.current = new MyDLLNode<>();
+        	this.current.setNextNode(current);
+        }
 
         @Override
         public boolean hasNext() {
@@ -145,4 +149,21 @@ public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
             return current.getElement();
         }
     }
+    
+    /*private class QueueIterator implements Iterator<E> {
+        private MyDLLNode<E> current;
+        private QueueIterator(MyDLLNode<E> current) {this.current = current;}
+
+        @Override
+        public boolean hasNext() {
+            return current.getNextNode() != null;
+        }
+
+        @Override
+        public E next() throws NoSuchElementException {
+            if(!this.hasNext()) throw new NoSuchElementException();
+            current = current.getNextNode();
+            return current.getElement();
+        }
+    } */
 }
