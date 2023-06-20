@@ -213,22 +213,32 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testHasNext() {
-		assertFalse(listOne.hasNext());
-		assertTrue(listThree.hasNext());
+		assertFalse(listFour.hasNext());
+		assertTrue(listTwo.hasNext());
+		assertTrue(listOne.hasNext());
 	}
 
 	/**
 	 * Test method for {@link main.MyDLL#next()}.
 	 */
 	@Test
-	void testNext() {
+	void testNextFailNull() {
 		try {
-			listOne.next();
+			listFour.next();
 			fail("Failed this test");
 		} catch (NoSuchElementException e) {
 			assertTrue(true);
 		}
-		assertSame(nodeFour.getElement(), listTwo.next());
+	}
+	
+	/**
+	 * Test method for {@link main.MyDLL#next()}.
+	 */
+	@Test
+	void testNext() {
+		E returnEle = listTwo.next();
+		assertEquals(returnEle, listTwo.get(0));
+		assertEquals(returnEle, nodeThree.getElement());
 	}
 
 	/**
@@ -784,6 +794,7 @@ class MyDLLTests<E> {
 	@Test
 	void testIterator() {
 		it = listTwo.iterator();
+		assertEquals(listTwo.next(), it.next());
 		assertEquals(listTwo.next(), it.next());
 		assertEquals(listTwo.next(), it.next());
 		assertFalse(listTwo.hasNext());
