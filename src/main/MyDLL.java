@@ -174,11 +174,13 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 			throw new IndexOutOfBoundsException();
 		}
 		
-		MyDLLNode<E> currentNode = head;
-		for(int i = 0; i < index; i++) {
-			currentNode = currentNode.getNextNode();
+		Iterator<E> it = this.iterator();
+		E returnVal = null;
+		
+		for(int i = -1; i < index; i++) {
+			returnVal = it.next();
 		}
-		return currentNode.getElement();
+		return returnVal;
 	}
 	
 	public MyDLLNode<E> getNode(int index) throws IndexOutOfBoundsException {
@@ -235,17 +237,19 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		if(toRemove == null) {
 			throw new NullPointerException();
 		}
-		// Change to WHILE LOOP
-		MyDLLNode<E> removedNode = head;
+
 		int index = 0;
-		for(int i = 0; i < count; i++) {
-			if(removedNode.getElement() == toRemove) {
+		E returnVal;
+		Iterator<E> it = this.iterator();
+		while(it.hasNext()) {
+			returnVal = it.next();
+			if(returnVal == toRemove) {
 				return this.remove(index);
 			} else {
-				removedNode = removedNode.getNextNode();
 				index++;
 			}
 		}
+		
 		return null;
 	}
 
@@ -277,16 +281,15 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		if(toFind == null) {
 			throw new NullPointerException();
 		}
-		
-		// Change to WHILE LOOP
-		MyDLLNode<E> currentNode = head;
-		for(int i = 0; i < count; i++) {
-			if(currentNode.getElement() == toFind) {
+		E checkVal;
+		Iterator<E> it = this.iterator();
+		while(it.hasNext()) {
+			checkVal = it.next();
+			if(checkVal == toFind) {
 				return true;
-			} else {
-				currentNode = currentNode.getNextNode();
 			}
 		}
+		
 		return false;
 	}
 
@@ -298,12 +301,11 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		} else if(count > toHold.length) {
 			toHold = (E[])new Object[count];
 		}
-		
-		// Change to WHILE LOOP
-		MyDLLNode<E> currentNode = head;
-		for(int i = 0; i < count; i++) {
-			toHold[i] = (E) currentNode.getElement();
-			currentNode = currentNode.getNextNode();
+		Iterator<E> it = this.iterator();
+		int index = 0;
+		while(it.hasNext()) {
+			toHold[index] = it.next();
+			index++;
 		}
 		
 		return toHold;
@@ -313,12 +315,13 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	public Object[] toArray() {
 		Object[] arrList = new Object[count];
 		
-		// Change to WHILE LOOP
-		MyDLLNode<E> currentNode = head;
-		for(int i = 0; i < count; i++) {
-			arrList[i] = currentNode.getElement();
-			currentNode = currentNode.getNextNode();
+		Iterator<E> it = this.iterator();
+		int index = 0;
+		while(it.hasNext()) {
+			arrList[index] = it.next();
+			index++;
 		}
+		
 		return arrList;
 	}
 

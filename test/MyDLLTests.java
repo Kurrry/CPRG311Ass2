@@ -764,6 +764,16 @@ class MyDLLTests<E> {
 	}
 	
 	/**
+	 * Test method for {@link main.MyDLL#toArray(E[])}.
+	 */
+	@Test
+	void testToArrayEArrayNoEle() {
+		arrayOne = listFour.toArray((E[]) arrayOne);
+		assertNull(arrayOne[0]);
+		assertNull(arrayOne[2]);	
+	}
+	
+	/**
 	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
