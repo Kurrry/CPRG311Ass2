@@ -8,7 +8,11 @@ import java.util.NoSuchElementException;
 
 public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
 
-    private static final int topOfQueue = 0;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final int topOfQueue = 0;
 
     public MyQueue() {
 
