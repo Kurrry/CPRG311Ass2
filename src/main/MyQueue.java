@@ -125,10 +125,10 @@ public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
 
     @Override
     public String toString() {
-        //Iterator<E> it = this.iterator();
-        StringBuilder returnStr = new StringBuilder(this.next().toString());
-        while(this.hasNext()) {
-            returnStr.append(" ").append(this.next().toString());
+        Iterator<E> it = this.iterator();
+        StringBuilder returnStr = new StringBuilder(it.next().toString());
+        while(it.hasNext()) {
+            returnStr.append(" ").append(it.next().toString());
         }
         return returnStr.toString();
     }
