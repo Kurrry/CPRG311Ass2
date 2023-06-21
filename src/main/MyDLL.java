@@ -30,11 +30,9 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		count = 1;
 		
 		MyDLLNode<E> currentNode = head;
-		MyDLLNode<E> nextNodeLoc = currentNode.getNextNode();
-		while(nextNodeLoc != null) {
-			currentNode = nextNodeLoc;
+		while(currentNode.getNextNode() != null) {
 			count++;
-			nextNodeLoc = nextNodeLoc.getNextNode();
+			currentNode = currentNode.getNextNode();
 		}
 		this.tail = currentNode;
 	}
@@ -155,14 +153,10 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		if(toAdd == null) {
 			throw new NullPointerException();
 		}
-		
-		for(int i = 0; i < toAdd.size(); i++) {
-			MyDLLNode<E> newNode = new MyDLLNode<E>(toAdd.get(i));
-			tail.setNextNode(newNode);
-			newNode.setPrevNode(tail);
-			tail = newNode;
+		Iterator<? extends E> it = toAdd.iterator();
+		while(it.hasNext()) {
+			add(it.next());
 		}
-		count += toAdd.size();
 		
 		return true;
 		
