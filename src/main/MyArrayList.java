@@ -7,65 +7,58 @@ import utilities.ListADT;
 
 public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 
-	//declare variables
+	// declare variables
 	private E[] array;
 	private int size;
-	public int capacity; //
+	public int capacity; 
+	private int iteratorIndex = 0;
 	private static final int DEFAULT = 10;
 	private static final double expandValue = 1.5;
-	
-	//default constructor
+
+	// default constructor
 	public MyArrayList() {
 		this(DEFAULT);
 	}
-	
-	//constructor for MyArrayList of specific size
-	//
-	//NOTE TO SELF: Why does IDE recommend the SuppressWarinings("unchecked")?
+
+	// constructor for MyArrayList of specific size
+	@SuppressWarnings("unchecked")
 	public MyArrayList(int initalSize) {
-		@SuppressWarnings("unchecked")
 		E[] tempArray = (E[]) new Object[initalSize];
 		array = tempArray;
 		capacity = initalSize;
 		size = 0;
-		//initialized = true;
 	}
-	
-	
 
-	//method to shift all values after a specific index to the right
-	//will allow MyArrayList to have values inserted at an index and automatically
-	//shift the values to the right of that index over to make space
+	// method to shift all values after a specific index to the right
+	// will allow MyArrayList to have values inserted at an index and automatically
+	// shift the values to the right of that index over to make space
 	public void shiftRight(int index) {
-		for(int i = size; i > index; i--) {
+		for (int i = size; i > index; i--) {
 			array[i] = array[i - 1];
 		}
 	}
-	
-	
-	//method to shift all values after a specific index to the left
-	//will allow MyArrayList to have values REMOVED at an index and automatically
-	//shift the values to the left, thereby removing the empty space
+
+	// method to shift all values after a specific index to the left
+	// will allow MyArrayList to have values REMOVED at an index and automatically
+	// shift the values to the left, thereby removing the empty space
 	public void shiftLeft(int index) {
 
-		for(int i = index; i < size; i++) {
+		for (int i = index; i < size; i++) {
 			array[i] = array[i + 1];
 		}
 	}
-	
-	
-	//Increases the capacity of the array by 50 percent.
+
+	// Increases the capacity of the array by 50 percent.
 	public void increaseCap() {
 		System.out.println("running increaseCap()");
 		capacity = (int) Math.round(size * expandValue);
 		@SuppressWarnings("unchecked")
 		E[] tempArray = (E[]) new Object[capacity];
-		for(int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++) {
 			tempArray[i] = array[i];
 		}
 		array = tempArray;
 	}
-	
 
 	/**
 	 * @return The current element count.
@@ -77,27 +70,25 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		while(size > 0) {
-			remove(size -1);
+		while (size > 0) {
+			remove(size - 1);
 		}
 	}
 
-
 	@Override
 	public boolean add(int index, E toAdd) throws NullPointerException, IndexOutOfBoundsException {
-		if(toAdd == null) {
+		if (toAdd == null) {
 			throw new NullPointerException();
 		}
-		
-		if(index < 0 || index >= size) {
+
+		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
-		
-		if(size >= capacity) {
+
+		if (size >= capacity) {
 			increaseCap();
 		}
-		
+
 		shiftRight(index);
 
 		array[index] = toAdd;
@@ -105,23 +96,20 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 		return true;
 	}
 
-	
-	
 	/*
-	 *Append element to end of list
-	 *return true if successfully added element 
+	 * Append element to end of list return true if successfully added element
 	 * 
 	 */
 	@Override
 	public boolean add(E toAdd) throws NullPointerException {
-		if(toAdd == null) {
+		if (toAdd == null) {
 			throw new NullPointerException();
 		}
-		
-		if(size >= capacity) {
+
+		if (size >= capacity) {
 			increaseCap();
 		}
-		
+
 		array[size] = toAdd;
 		size++;
 		return true;
@@ -130,12 +118,20 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 	@Override
 	public boolean addAll(ListADT<? extends E> toAdd) throws NullPointerException {
 		// TODO Auto-generated method stub
-		return false;
+		if (toAdd == null) {
+			throw new NullPointerException();
+		}
+		
+		while(toAdd.iterator().hasNext()) {
+			add(toAdd.iterator().next());
+		}
+
+		return true;
 	}
 
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
-		if(index < 0 || index >= size) {
+		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
 
@@ -144,13 +140,13 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public E remove(int index) throws IndexOutOfBoundsException {
-		if(index < 0 || index >= size) {
+		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
-		
+
 		E tempElement = array[index];
-		
-		if(index < (size - 1)) {
+
+		if (index < (size - 1)) {
 			shiftLeft(index);
 		}
 		size--;
@@ -159,23 +155,32 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public E remove(E toRemove) throws NullPointerException {
-		// TODO Auto-generated method stub
+		if (toRemove == null) {
+			throw new NullPointerException();
+		}
+
+		for (int i = 0; i < size; i++) {
+			if (array[i].equals(toRemove)) {
+				return remove(i);
+			}
+		}
+
 		return null;
 	}
 
 	@Override
 	public E set(int index, E toChange) throws NullPointerException, IndexOutOfBoundsException {
-		if(toChange == null) {
+		if (toChange == null) {
 			throw new NullPointerException();
 		}
-		
-		if(index < 0 || index >= size) {
+
+		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
-		
+
 		E tempElement = array[index];
 		array[index] = toChange;
-		
+
 		return tempElement;
 	}
 
@@ -186,39 +191,101 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public boolean contains(E toFind) throws NullPointerException {
-		// TODO Auto-generated method stub
+		if (toFind == null) {
+			throw new NullPointerException();
+		}
+
+		for (int i = 0; i < size; i++) {
+			if (array[i].equals(toFind)) {
+				return true;
+			}
+		}
+
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public E[] toArray(E[] toHold) throws NullPointerException {
-		// TODO Auto-generated method stub
-		return null;
+		if (toHold == null) {
+			throw new NullPointerException();
+		}
+
+		if (size > toHold.length) {
+			toHold = (E[]) new Object[size];
+		}
+
+		for (int i = 0; i < size; i++) {
+			toHold[i] = array[i];
+		}
+
+		return toHold;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+
+		E[] tempArray = (E[]) new Object[size];
+
+		for (int i = 0; i < size; i++) {
+			tempArray[i] = array[i];
+		}
+
+		return tempArray;
 	}
 
 	@Override
 	public Iterator<E> iterator() {
 		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public boolean hasNext() {
-		// TODO Auto-generated method stub
-		return false;
+		return new IteratorForMyArrayList();
 	}
 
 	@Override
+	public boolean hasNext() {
+		return iteratorIndex < (size());
+		}
+
+	@Override
 	public E next() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		E tempElement;
+		
+		if(hasNext()) {
+			tempElement = array[iteratorIndex];
+			iteratorIndex++;
+		}
+		else {
+			throw new NoSuchElementException();
+		}
+		return tempElement;
 	}
+
+
+
+	private class IteratorForMyArrayList implements Iterator<E> {
+		
+		@Override
+		public boolean hasNext() {
+			return iteratorIndex < (size());
+		}
+
+		@Override
+		public E next() throws NoSuchElementException {
+			E tempElement;
+			
+			if(hasNext()) {
+				tempElement = array[iteratorIndex];
+				iteratorIndex++;
+			}
+			else {
+				throw new NoSuchElementException();
+			}
+			return tempElement;
+
+		}
+
+	}
+
 
 
 }
