@@ -117,7 +117,6 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public boolean addAll(ListADT<? extends E> toAdd) throws NullPointerException {
-		// TODO Auto-generated method stub
 		if (toAdd == null) {
 			throw new NullPointerException();
 		}
@@ -237,7 +236,6 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
 		return new IteratorForMyArrayList();
 	}
 
