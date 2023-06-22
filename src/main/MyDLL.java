@@ -365,11 +365,11 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	@Override
 	public String toString() {
 		Iterator<E> it = this.iterator();
-		String returnStr = (String)it.next();
+		StringBuilder returnStr = new StringBuilder(it.next().toString());
 		while(it.hasNext()) {
-			returnStr += " " + it.next();
+			returnStr.append(" " + it.next().toString());
 		}
-		return returnStr;
+		return returnStr.toString();
 	}
 	
 }
