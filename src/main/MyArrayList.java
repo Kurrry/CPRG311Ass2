@@ -121,14 +121,10 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 			throw new NullPointerException();
 		}
 		
-//		Iterator<? extends E> iterator = toAdd.iterator();
-//		
-//		while(iterator.hasNext()) {
-//			add(iterator.next());
-//		}
-
-		while(toAdd.iterator().hasNext()) {
-			add(toAdd.iterator().next());
+		Iterator<? extends E> iterator = toAdd.iterator();
+		
+		while(iterator.hasNext()) {
+			add(iterator.next());
 		}
 		
 		return true;
@@ -342,4 +338,3 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 //          :        =_     _.-~~          ~~--.__
 //     _____ \         ~-+-~                   ___~=_______
 //          ~@#~~ == ...______ __ ___ _--~~--_
-//                                                         =
