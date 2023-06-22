@@ -6,13 +6,20 @@ import java.util.NoSuchElementException;
 import utilities.Iterator;
 import utilities.ListADT;
 
+/**
+ *  The MyArrayList class is a dynamic array which expands in capacity as the size of the MyArrayList increases.
+ *  This allows the user to add elements at the end or at specific indexes of the MyArrayList with it growing
+ *  in capacity to meet the users needs. Additionally, the MyArrayList will change in size when elements are removed
+ *  to avoid having a null index
+ *  
+ *  @author Group 9
+ *  
+ *  @param <E> The type of elements this list holds.
+ */
 public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -8053764349239653143L;
-	// declare variables
 	private E[] array;
 	private int size;
 	private int capacity; 
@@ -20,12 +27,20 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 	private static final int DEFAULT = 10;
 	private static final double expandValue = 1.5;
 
-	// default constructor
+	/**
+	 * No-argument constructor for creating a MyArrayList list.
+	 * Will implement MyArrayList with DEFAULT capacity
+	 */
 	public MyArrayList() {
 		this(DEFAULT);
 	}
 
-	// constructor for MyArrayList of specific size
+	/**
+	 * Constructor for MyArrayList of a specific size 
+	 *
+	 * @param initialSize
+	 * 			The integer value for the specific size of the MyArrayList. 
+	 */
 	@SuppressWarnings("unchecked")
 	public MyArrayList(int initalSize) {
 		array = (E[]) new Object[initalSize];
@@ -33,18 +48,28 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 		size = 0;
 	}
 
-	// method to shift all values after a specific index to the right
-	// will allow MyArrayList to have values inserted at an index and automatically
-	// shift the values to the right of that index over to make space
+	/**
+	 * Method to shift all values after a specific index to the right.
+	 * Will allow MyArrayList to have values inserted at an index and automatically shift all
+	 * values to the right of the index over to make space
+	 * 
+	 * @param index
+	 * 			The index value after which all values in the array are to be shifted to the right.
+	 */
 	private void shiftRight(int index) {
 		for (int i = size; i > index; i--) {
 			array[i] = array[i - 1];
 		}
 	}
 
-	// method to shift all values after a specific index to the left
-	// will allow MyArrayList to have values REMOVED at an index and automatically
-	// shift the values to the left, thereby removing the empty space
+	/**
+	 * Method to shift all values after a specific index to the left
+	 * Will allow MyArrayList to have values REMOVED at an index and automatically
+	 * shift after the index to the end of MyArrayList one to the left, thereby removing the empty space
+	 * 
+	 * @param index
+	 * 			The index value at which all values in the array are to be shifted to the left.
+	 */
 	private void shiftLeft(int index) {
 
 		for (int i = index; i < size-1; i++) {
@@ -52,7 +77,10 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 		}
 	}
 
-	// Increases the capacity of the array by 50 percent.
+
+	/**
+	 *  Method to increase the capacity of the MyArrayList by 50 Percent
+	 */
 	@SuppressWarnings("unchecked")
 	private void increaseCap() {
 		capacity = (int) Math.round(size * expandValue);
@@ -63,18 +91,22 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 		array = tempArray;
 	}
 	
-	//returns the current capacity of the arrayList
+	/**
+	 * Returns the current capacity of the MyArrayList before array will need to be increased.
+	 * 
+	 * @return capacity
+	 * 			The current capacity of the MyArrayList
+	 */
 	public int getCapacity() {
 		return capacity;
 	}
 
-	/**
-	 * @return The current element count.
-	 */
+	
 	@Override
 	public int size() {
 		return size;
 	}
+	
 
 	@Override
 	public void clear() {
@@ -82,7 +114,9 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 			remove(size - 1);
 		}
 	}
-
+	
+	
+	
 	@Override
 	public boolean add(int index, E toAdd) throws NullPointerException, IndexOutOfBoundsException {
 		if (toAdd == null) {
@@ -104,10 +138,7 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 		return true;
 	}
 
-	/*
-	 * Append element to end of list return true if successfully added element
-	 * 
-	 */
+
 	@Override
 	public boolean add(E toAdd) throws NullPointerException {
 		if (toAdd == null) {
@@ -275,14 +306,12 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 		return tempElement;
 	}
 
-	public String toString() {
-		
-//		StringBuilder returnString = new StringBuilder(this.next().toString());
-//
-//		while(this.hasNext()) {
-//			returnString.append(" ").append(this.next().toString());
-//		}
-		
+	/**
+	 * Method to return all elements in the MyArrayList as a single string with each element being separated by a blank space
+	 * @return returnString.toString()
+	 * 			A string listing all elements in the MyArrayList 
+	 */
+	public String toString() {		
 		Iterator<E> iterator = this.iterator();
 		StringBuilder returnString = new StringBuilder(iterator.next().toString());
 
@@ -331,6 +360,9 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 
 
 }
+
+
+
 
 //     
 //                      _..--+~/@-~--.
