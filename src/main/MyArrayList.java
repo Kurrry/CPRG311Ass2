@@ -8,6 +8,10 @@ import utilities.ListADT;
 
 public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8053764349239653143L;
 	// declare variables
 	private E[] array;
 	private int size;
@@ -217,7 +221,6 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 		}
 
 		if (size > toHold.length) {
-			//toHold = (E[]) new Object[size];
 			toHold = (E[])Array.newInstance(toHold.getClass().getComponentType(), size);
 		}
 
