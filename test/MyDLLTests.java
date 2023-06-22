@@ -120,10 +120,10 @@ class MyDLLTests<E> {
 	@Test
 	void testMyDLLNodeEMyDLLNodeOfEMyDLLNodeOfE() {
 		assertEquals("String 4", nodeFour.getElement());
-		assertSame(nodeThree, nodeFour.getPrevNode());
-		assertSame(nodeFive, nodeFour.getNextNode());
-		assertSame(nodeFour, nodeThree.getNextNode());
-		assertSame(nodeFour, nodeFive.getPrevNode());
+		assertEquals(nodeThree, nodeFour.getPrevNode());
+		assertEquals(nodeFive, nodeFour.getNextNode());
+		assertEquals(nodeFour, nodeThree.getNextNode());
+		assertEquals(nodeFour, nodeFive.getPrevNode());
 	}
 
 	/**
@@ -132,7 +132,7 @@ class MyDLLTests<E> {
 	@Test
 	void testGetSetNextNode() {
 		nodeOne.setNextNode(nodeTwo);
-		assertSame(nodeTwo, nodeOne.getNextNode());
+		assertEquals(nodeTwo, nodeOne.getNextNode());
 	}
 
 	/**
@@ -141,7 +141,7 @@ class MyDLLTests<E> {
 	@Test
 	void testGetSetPrevNode() {
 		nodeTwo.setPrevNode(nodeOne);
-		assertSame(nodeOne, nodeTwo.getPrevNode());
+		assertEquals(nodeOne, nodeTwo.getPrevNode());
 	}
 
 	/**
@@ -183,12 +183,11 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testMyDLLMyDLLNodeOfE() {
-		assertSame(listOne.getHead(), nodeOne);
-		assertSame(listOne.getTail(), nodeOne);
+		assertEquals(listOne.get(0), nodeOne.getElement());
 		assertEquals(listOne.size(), 1);
 		
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(listTwo.get(0), nodeThree.getElement());
+		assertEquals(listTwo.get(2), nodeFive.getElement());
 		assertEquals(listTwo.size(), 3);
 	}
 		
@@ -197,8 +196,8 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testMyDLLMyDLLNodeOfEMyDLLNodeOfE() {
-		assertSame(listThree.getHead(), nodeThree);
-		assertSame(listThree.getTail(), nodeFour);
+		assertEquals(listThree.get(0), nodeThree.getElement());
+		assertEquals(listThree.get(1), nodeFour.getElement());
 		assertEquals(listThree.size(), 2);
 	}
 
@@ -207,8 +206,8 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testGetHead() {
-		assertSame(listOne.getHead(), nodeOne);
-		assertSame(listTwo.getHead(), nodeThree);
+		assertEquals(listOne.getHead().getElement(), nodeOne.getElement());
+		assertEquals(listTwo.getHead().getElement(), nodeThree.getElement());
 	}
 
 	/**
@@ -216,8 +215,8 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testGetTail() {
-		assertSame(listOne.getTail(), nodeOne);
-		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(listOne.getTail().getElement(), nodeOne.getElement());
+		assertEquals(listTwo.getTail().getElement(), nodeFive.getElement());
 	}
 
 	/**
@@ -284,15 +283,13 @@ class MyDLLTests<E> {
 		
 		MyDLLNode<E> tempNode = (MyDLLNode<E>)listTwo.getNode(1);
 		
-		assertSame(tempNode.getElement(), element);
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(tempNode.getElement(), element);
+		assertEquals(listTwo.get(0), nodeThree.getElement());
+		assertEquals(listTwo.get(3), nodeFive.getElement());
 		assertEquals(listTwo.size(), 4);
 		
-		assertSame(tempNode.getPrevNode(), nodeThree);
-		assertSame(tempNode.getNextNode(), nodeFour);
-		assertSame(tempNode, nodeThree.getNextNode());
-		assertSame(tempNode, nodeFour.getPrevNode());
+		assertEquals(tempNode.getPrevNode().getElement(), nodeThree.getElement());
+		assertEquals(tempNode.getNextNode().getElement(), nodeFour.getElement());
 		
 		assertTrue(returnVar);
 		
@@ -307,8 +304,8 @@ class MyDLLTests<E> {
 		
 		MyDLLNode<E> tempNode = listFour.getHead();
 		
-		assertSame(tempNode.getElement(), element);
-		assertSame(listFour.getTail(), tempNode);
+		assertEquals(tempNode.getElement(), element);
+		assertEquals(listFour.getTail(), tempNode);
 		assertNull(tempNode.getNextNode());
 		assertNull(tempNode.getPrevNode());
 		assertEquals(listFour.size(), 1);
@@ -324,11 +321,11 @@ class MyDLLTests<E> {
 		
 		MyDLLNode<E> tempNode = listTwo.getHead();
 		
-		assertSame(tempNode.getElement(), element);
-		assertSame(listTwo.getTail(), nodeFive);
-		assertSame(tempNode.getNextNode(), nodeThree);
-		assertSame(tempNode, nodeThree.getPrevNode());
+		assertEquals(tempNode.getElement(), element);
+		assertEquals(listTwo.get(3), nodeFive.getElement());
+		assertEquals(tempNode.getNextNode().getElement(), nodeThree.getElement());
 		assertEquals(listTwo.size(), 4);
+		assertNull(tempNode.getPrevNode());
 		assertTrue(returnVar);
 	}
 
@@ -341,9 +338,9 @@ class MyDLLTests<E> {
 		
 		MyDLLNode<E> tempNode = listTwo.getTail();
 		
-		assertSame(tempNode.getElement(), element);
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(tempNode.getPrevNode(), nodeFive);
+		assertEquals(tempNode.getElement(), element);
+		assertEquals(listTwo.get(0), nodeThree.getElement());
+		assertEquals(tempNode.getPrevNode().getElement(), nodeFive.getElement());
 		assertNull(tempNode.getNextNode());
 		assertEquals(listTwo.size(), 4);
 		assertTrue(returnVar);
@@ -391,9 +388,9 @@ class MyDLLTests<E> {
 		
 		MyDLLNode<E> tempNode = listTwo.getTail();
 		
-		assertSame(tempNode.getElement(), element);
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(tempNode.getPrevNode(), nodeFive);
+		assertEquals(tempNode.getElement(), element);
+		assertEquals(listTwo.get(0), nodeThree.getElement());
+		assertEquals(tempNode.getPrevNode().getElement(), nodeFive.getElement());
 		assertNull(tempNode.getNextNode());
 		assertEquals(listTwo.size(), 4);
 		assertTrue(returnVar);
@@ -419,7 +416,7 @@ class MyDLLTests<E> {
 	void testAddAll() {
 		boolean returnVar = listOne.addAll(listTwo);
 		
-		assertSame(listOne.getHead(), nodeOne);
+		assertEquals(listOne.get(0), nodeOne.getElement());
 		assertEquals(listOne.getTail().getElement(), listTwo.getTail().getElement());
 		assertEquals(listOne.size(), 4);
 		assertTrue(returnVar);
@@ -473,9 +470,9 @@ class MyDLLTests<E> {
 	 */
 	@Test
 	void testGetNode() {
-		assertEquals(nodeThree, listTwo.getNode(0));
-		assertEquals(nodeFour, listTwo.getNode(1));
-		assertEquals(nodeFive, listTwo.getNode(2));
+		assertEquals(nodeThree.getElement(), listTwo.getNode(0).getElement());
+		assertEquals(nodeFour.getElement(), listTwo.getNode(1).getElement());
+		assertEquals(nodeFive.getElement(), listTwo.getNode(2).getElement());
 	}
 
 	/**
@@ -518,8 +515,8 @@ class MyDLLTests<E> {
 	void testRemoveInt() {	
 		String returnVar = (String)listTwo.remove(1);
 		
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(listTwo.get(0), nodeThree.getElement());
+		assertEquals(listTwo.get(1), nodeFive.getElement());
 		assertEquals(listTwo.size(), 2);
 		assertEquals(returnVar, "String 4");
 	}
@@ -531,8 +528,8 @@ class MyDLLTests<E> {
 	void testRemoveIntHead() {
 		String returnVar = (String)listTwo.remove(0);
 		
-		assertSame(listTwo.getHead(), nodeFour);
-		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(listTwo.get(0), nodeFour.getElement());
+		assertEquals(listTwo.get(1), nodeFive.getElement());
 		assertEquals(listTwo.size(), 2);
 		assertEquals(returnVar, "String 3");
 	}
@@ -544,8 +541,8 @@ class MyDLLTests<E> {
 	void testRemoveIntTail() {
 		String returnVar = (String)listTwo.remove(2);
 		
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getTail(), nodeFour);
+		assertEquals(listTwo.get(0), nodeThree.getElement());
+		assertEquals(listTwo.get(1), nodeFour.getElement());
 		assertEquals(listTwo.size(), 2);
 		assertEquals(returnVar, "String 5");
 	}
@@ -577,8 +574,8 @@ class MyDLLTests<E> {
 	void testRemoveE() {
 		String returnVar = (String)listTwo.remove((E)"String 4");
 		
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(listTwo.get(0), nodeThree.getElement());
+		assertEquals(listTwo.get(1), nodeFive.getElement());
 		assertEquals(2, listTwo.size());
 		assertEquals(returnVar, "String 4");
 		
@@ -605,8 +602,8 @@ class MyDLLTests<E> {
 	void testRemoveEHead() {
 		String returnVar = (String)listTwo.remove((E)"String 3");
 		
-		assertSame(listTwo.getHead(), nodeFour);
-		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(listTwo.get(0), nodeFour.getElement());
+		assertEquals(listTwo.get(1), nodeFive.getElement());
 		assertEquals(2, listTwo.size());
 		assertEquals(returnVar, "String 3");
 		
@@ -619,8 +616,8 @@ class MyDLLTests<E> {
 	void testRemoveETail() {
 		String returnVar = (String)listTwo.remove((E)"String 5");
 		
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getTail(), nodeFour);
+		assertEquals(listTwo.get(0), nodeThree.getElement());
+		assertEquals(listTwo.get(1), nodeFour.getElement());
 		assertEquals(2, listTwo.size());
 		assertEquals(returnVar, "String 5");
 		
@@ -633,8 +630,8 @@ class MyDLLTests<E> {
 	void testRemoveEInexistant() {
 		String returnVar = (String)listTwo.remove(element);
 		
-		assertSame(listTwo.getHead(), nodeThree);
-		assertSame(listTwo.getTail(), nodeFive);
+		assertEquals(listTwo.get(0), nodeThree.getElement());
+		assertEquals(listTwo.get(2), nodeFive.getElement());
 		assertEquals(3, listTwo.size());
 		assertNull(returnVar);
 		

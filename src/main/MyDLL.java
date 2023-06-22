@@ -15,7 +15,9 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	private int count;
 	
 	
-	
+	/**
+	 * No-argument constructor
+	 */
 	public MyDLL() {
 		this.head = null;
 		this.tail = null;
@@ -24,30 +26,37 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	}
 	
 	public MyDLL(MyDLLNode<E> head) {
-		this.head = head;
+		
+		MyDLLNode<E> copiedNode = new MyDLLNode<E>(head.getElement());
+		
+		this.head = copiedNode;
+		this.tail = copiedNode;
 		itNode = new MyDLLNode<E>();
-		itNode.setNextNode(head);
+		itNode.setNextNode(copiedNode);
 		count = 1;
 		
 		MyDLLNode<E> currentNode = head;
 		while(currentNode.getNextNode() != null) {
-			count++;
 			currentNode = currentNode.getNextNode();
+			this.add(currentNode.getElement());
 		}
-		this.tail = currentNode;
+		
 	}
 	
 	public MyDLL(MyDLLNode<E> head, MyDLLNode<E> tail) {
-		this.head = head;
+		
+		MyDLLNode<E> copiedNode = new MyDLLNode<E>(head.getElement());
+
+		this.head = copiedNode;
+		this.tail = copiedNode;
 		itNode = new MyDLLNode<E>();
-		itNode.setNextNode(head);
-		this.tail = tail;
+		itNode.setNextNode(copiedNode);
 		count = 1;
 		
 		MyDLLNode<E> currentNode = head;
 		while(currentNode != tail) {
 			currentNode = currentNode.getNextNode();
-			count++;
+			this.add(currentNode.getElement());
 		}	
 	}
 
