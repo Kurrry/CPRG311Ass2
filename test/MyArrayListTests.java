@@ -4,21 +4,50 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import main.MyArrayList;
+import utilities.Iterator;
+
+import java.util.NoSuchElementException;
+
 /**
  * 
  */
 
 /**
- * @author Eric
+ * @author John
  *
  */
-class MyArrayListTests {
+class MyArrayListTests<E> {
 
+	MyArrayList<E> myArrayListOne, myArrayListTwo, myArrayListThree;
+	E element;
+	Object[] arrayOne, arrayTwo;
+	Iterator<E> iterator;
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
+		
+		myArrayListOne = new MyArrayList<E>();
+		myArrayListTwo = new MyArrayList<E>();
+		
+		myArrayListOne.add((E)"String 0");
+		myArrayListOne.add((E)"String 1");
+		myArrayListOne.add((E)"String 2");
+		myArrayListOne.add((E)"String 3");
+		
+		myArrayListTwo.add((E)"String Zero");
+		myArrayListTwo.add((E)"String One");
+		myArrayListTwo.add((E)"String Two");
+		myArrayListTwo.add((E)"String Three");
+		
+		element = (E)"Element to add";
+		
+
+		arrayOne = (E[])new Object[4];
+		arrayTwo = (E[])new Object[1];
 	}
 
 	/**
@@ -26,6 +55,17 @@ class MyArrayListTests {
 	 */
 	@AfterEach
 	void tearDown() throws Exception {
+		
+		myArrayListOne.clear();
+		myArrayListTwo.clear();
+		
+		element = null;
+		
+		arrayOne = null;
+		arrayTwo = null;
+		
+		iterator = null;
+		
 	}
 
 	/**
@@ -33,7 +73,10 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testMyArrayList() {
-		fail("Not yet implemented");
+		assertNull(myArrayListThree);
+		myArrayListThree = new MyArrayList<E>();
+		assertNotNull(myArrayListThree);
+		assertEquals(10,myArrayListThree.getCapacity());
 	}
 
 	/**
@@ -41,39 +84,71 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testMyArrayListInt() {
-		fail("Not yet implemented");
+		assertNull(myArrayListThree);
+		myArrayListThree = new MyArrayList<E>(100);
+		assertNotNull(myArrayListThree);
+		assertEquals(100,myArrayListThree.getCapacity());
 	}
 
-	/**
-	 * Test method for {@link main.MyArrayList#shiftRight(int)}.
-	 */
-	@Test
-	void testShiftRight() {
-		fail("Not yet implemented");
-	}
+//	 MyArrayList.shiftRight() is a private method, will no longer be tested after confirming it works properly.
+//	
+//	/**
+//	 * Test method for {@link main.MyArrayList#shiftRight(int)}.
+//	 */
+//	@Test
+//	void testShiftRight() {
+//		assertNotEquals(myArrayListOne.get(0),myArrayListOne.get(1));
+//		myArrayListOne.shiftRight(0);
+//		assertEquals(myArrayListOne.get(0),myArrayListOne.get(1));
+//		assertEquals("String 0", myArrayListOne.get(0));
+//		assertEquals("String 0", myArrayListOne.get(1));
+//	}
 
-	/**
-	 * Test method for {@link main.MyArrayList#shiftLeft(int)}.
-	 */
-	@Test
-	void testShiftLeft() {
-		fail("Not yet implemented");
-	}
+	
+//  MyArrayList.shiftLeft() is a private method, will no longer be tested after confirming it works properly.  
+//
+//	/**
+//	 * Test method for {@link main.MyArrayList#shiftLeft(int)}.
+//	 */
+//	@Test
+//	void testShiftLeft() {
+//		assertNotEquals(myArrayListOne.get(myArrayListOne.size()-1), myArrayListOne.get(myArrayListOne.size()-2));
+//		myArrayListOne.shiftLeft(0);
+//		assertEquals(myArrayListOne.get(myArrayListOne.size()-1), myArrayListOne.get(myArrayListOne.size()-2));
+//		
+//	}
 
-	/**
-	 * Test method for {@link main.MyArrayList#increaseCap()}.
-	 */
-	@Test
-	void testIncreaseCap() {
-		fail("Not yet implemented");
-	}
+	
+	
+//	MyArrayList.increaseCap() is a private method, will no longer be tested after confirming it works properly.   
+//	
+//	/**
+//	 * Test method for {@link main.MyArrayList#increaseCap()}.
+//	 */
+//	@Test
+//	void testIncreaseCap() {
+//		assertEquals(10, myArrayListOne.getCapacity());
+//		myArrayListOne.add(element);
+//		myArrayListOne.add(element);
+//		myArrayListOne.add(element);
+//		myArrayListOne.add(element);
+//		myArrayListOne.add(element);
+//		myArrayListOne.add(element);
+//		myArrayListOne.add(element);
+//		myArrayListOne.add(element);
+//		assertNotEquals(10, myArrayListOne.getCapacity());
+//		assertEquals(15, myArrayListOne.getCapacity());
+//
+//
+//	}
 
 	/**
 	 * Test method for {@link main.MyArrayList#size()}.
 	 */
 	@Test
 	void testSize() {
-		fail("Not yet implemented");
+		assertEquals(4,myArrayListOne.size());
+		//fail("Not yet implemented");
 	}
 
 	/**
@@ -81,7 +156,9 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testClear() {
-		fail("Not yet implemented");
+		myArrayListOne.clear();
+		assertEquals(0,myArrayListOne.size());
+		assertTrue(myArrayListOne.isEmpty());
 	}
 
 	/**
@@ -89,7 +166,8 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testAddIntE() {
-		fail("Not yet implemented");
+		assertTrue(myArrayListOne.add(0,element));
+		assertEquals(element,myArrayListOne.get(0));
 	}
 
 	/**
@@ -97,7 +175,7 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testAddE() {
-		fail("Not yet implemented");
+		assertTrue(myArrayListOne.add(element));
 	}
 
 	/**
@@ -105,7 +183,13 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testAddAll() {
-		fail("Not yet implemented");
+		int orginalSize = myArrayListOne.size();
+		assertNotEquals(myArrayListOne.size() + myArrayListTwo.size(), myArrayListOne.size());
+		assertFalse(myArrayListOne.contains((E)"String Zero"));
+		myArrayListOne.addAll(myArrayListTwo);
+		assertEquals(orginalSize + myArrayListTwo.size(), myArrayListOne.size());
+		assertTrue(myArrayListOne.contains((E)"String Zero"));
+		assertEquals("String Three", myArrayListOne.get(myArrayListOne.size()-1));
 	}
 
 	/**
@@ -113,7 +197,7 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testGet() {
-		fail("Not yet implemented");
+		assertEquals("String 0",myArrayListOne.get(0));
 	}
 
 	/**
@@ -121,7 +205,13 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testRemoveInt() {
-		fail("Not yet implemented");
+		assertEquals("String 0",myArrayListOne.get(0));
+		assertEquals(4, myArrayListOne.size());
+		myArrayListOne.remove(0);
+		assertNotEquals("String 0",myArrayListOne.get(0));
+		assertFalse(myArrayListOne.contains((E)"String 0"));
+		assertEquals(3, myArrayListOne.size());
+
 	}
 
 	/**
@@ -129,31 +219,36 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testRemoveE() {
-		fail("Not yet implemented");
-	}
+		assertEquals(4, myArrayListOne.size());
+		assertEquals("String 3", myArrayListOne.remove((E)"String 3"));
+		assertEquals(3, myArrayListOne.size());
+		assertNull(myArrayListOne.remove((E)"String 3"));
+		}
 
 	/**
 	 * Test method for {@link main.MyArrayList#set(int, java.lang.Object)}.
 	 */
 	@Test
 	void testSet() {
-		fail("Not yet implemented");
-	}
+		assertEquals("String 0",myArrayListOne.set(0,element));
+		assertEquals(element,myArrayListOne.get(0));
+		}
 
 	/**
 	 * Test method for {@link main.MyArrayList#isEmpty()}.
 	 */
 	@Test
 	void testIsEmpty() {
-		fail("Not yet implemented");
-	}
+		myArrayListOne.clear();
+		assertTrue(myArrayListOne.isEmpty());
+		}
 
 	/**
 	 * Test method for {@link main.MyArrayList#contains(java.lang.Object)}.
 	 */
 	@Test
 	void testContains() {
-		fail("Not yet implemented");
+		assertTrue(myArrayListOne.contains((E)"String 1"));
 	}
 
 	/**
@@ -161,7 +256,33 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testToArrayEArray() {
-		fail("Not yet implemented");
+		//Test with EArray containing same number of elements as MyArrayList
+		//arrayOne and myArrayListOne both have 4 elements
+		assertEquals(arrayOne.length,myArrayListOne.size());
+		System.out.println(arrayOne.length + " vs " + myArrayListOne.size());
+		
+		assertNotEquals(arrayOne[0],myArrayListOne.get(0));
+		assertNotEquals(arrayOne[1],myArrayListOne.get(1));
+		assertNotEquals(arrayOne[2],myArrayListOne.get(2));
+		assertNotEquals(arrayOne[3],myArrayListOne.get(3));
+		
+		myArrayListOne.toArray((E[])arrayOne);
+		
+		assertEquals(arrayOne[0],myArrayListOne.get(0));
+		assertEquals(arrayOne[1],myArrayListOne.get(1));
+		assertEquals(arrayOne[2],myArrayListOne.get(2));
+		assertEquals(arrayOne[3],myArrayListOne.get(3));
+		System.out.println(arrayOne[3] + " vs " + myArrayListOne.get(3));
+		
+		//Test with EArray containing fewer number of elements than MyArrayList
+		//arrayTwo has a length of 1, MyArrayListOne has 4 elements
+		assertNotEquals(arrayTwo.length,myArrayListOne.size());
+		myArrayListOne.toArray((E[])arrayTwo);
+		System.out.println(arrayTwo.length + " vs " + myArrayListOne.size());
+		assertEquals(arrayTwo.length,myArrayListOne.size());
+		assertEquals(arrayTwo[0],myArrayListOne.get(0));
+		assertEquals(arrayTwo[1],myArrayListOne.get(1));
+		
 	}
 
 	/**
@@ -169,7 +290,13 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testToArray() {
-		fail("Not yet implemented");
+		assertNotEquals(arrayTwo.length,myArrayListOne.size());
+		arrayTwo = myArrayListOne.toArray();
+		assertEquals(arrayTwo.length,myArrayListOne.size());
+		assertEquals(arrayTwo[0],myArrayListOne.get(0));
+		assertEquals(arrayTwo[1],myArrayListOne.get(1));
+		assertEquals(arrayTwo[2],myArrayListOne.get(2));
+		assertEquals(arrayTwo[3],myArrayListOne.get(3));
 	}
 
 	/**
@@ -177,7 +304,13 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testIterator() {
-		fail("Not yet implemented");
+		iterator = myArrayListOne.iterator();
+		assertEquals(iterator.next(), myArrayListOne.next());
+		assertEquals(iterator.next(), myArrayListOne.next());
+		assertEquals(iterator.next(), myArrayListOne.next());
+		assertEquals(iterator.next(), myArrayListOne.next());
+		assertFalse(iterator.hasNext());
+		assertFalse(myArrayListOne.hasNext());
 	}
 
 	/**
@@ -185,7 +318,10 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testHasNext() {
-		fail("Not yet implemented");
+		myArrayListThree = new MyArrayList<E>();
+		assertFalse(myArrayListThree.hasNext());
+		myArrayListThree.add(element);
+		assertTrue(myArrayListThree.hasNext());
 	}
 
 	/**
@@ -193,7 +329,10 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testNext() {
-		fail("Not yet implemented");
+		assertEquals("String 0", myArrayListOne.next());
+		assertEquals("String 1", myArrayListOne.next());
+		assertEquals("String 2", myArrayListOne.next());
+		assertEquals("String 3", myArrayListOne.next());
 	}
 
 	/**
@@ -201,7 +340,8 @@ class MyArrayListTests {
 	 */
 	@Test
 	void testToString() {
-		fail("Not yet implemented");
+		String testString = "String 0" + " " + "String 1" + " " + "String 2" + " " + "String 3";
+		assertEquals(testString,myArrayListOne.toString());
 	}
 
 }

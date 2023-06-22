@@ -10,7 +10,7 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 	// declare variables
 	private E[] array;
 	private int size;
-	public int capacity; 
+	private int capacity; 
 	private int iteratorIndex = 0;
 	private static final int DEFAULT = 10;
 	private static final double expandValue = 1.5;
@@ -23,8 +23,7 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 	// constructor for MyArrayList of specific size
 	@SuppressWarnings("unchecked")
 	public MyArrayList(int initalSize) {
-		E[] tempArray = (E[]) new Object[initalSize];
-		array = tempArray;
+		array = (E[]) new Object[initalSize];
 		capacity = initalSize;
 		size = 0;
 	}
@@ -32,7 +31,7 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 	// method to shift all values after a specific index to the right
 	// will allow MyArrayList to have values inserted at an index and automatically
 	// shift the values to the right of that index over to make space
-	public void shiftRight(int index) {
+	private void shiftRight(int index) {
 		for (int i = size; i > index; i--) {
 			array[i] = array[i - 1];
 		}
@@ -41,23 +40,27 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 	// method to shift all values after a specific index to the left
 	// will allow MyArrayList to have values REMOVED at an index and automatically
 	// shift the values to the left, thereby removing the empty space
-	public void shiftLeft(int index) {
+	private void shiftLeft(int index) {
 
-		for (int i = index; i < size; i++) {
+		for (int i = index; i < size-1; i++) {
 			array[i] = array[i + 1];
 		}
 	}
 
 	// Increases the capacity of the array by 50 percent.
-	public void increaseCap() {
-		System.out.println("running increaseCap()");
+	@SuppressWarnings("unchecked")
+	private void increaseCap() {
 		capacity = (int) Math.round(size * expandValue);
-		@SuppressWarnings("unchecked")
 		E[] tempArray = (E[]) new Object[capacity];
 		for (int i = 0; i < size; i++) {
 			tempArray[i] = array[i];
 		}
 		array = tempArray;
+	}
+	
+	//returns the current capacity of the arrayList
+	public int getCapacity() {
+		return capacity;
 	}
 
 	/**
