@@ -121,10 +121,16 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 			throw new NullPointerException();
 		}
 		
+//		Iterator<? extends E> iterator = toAdd.iterator();
+//		
+//		while(iterator.hasNext()) {
+//			add(iterator.next());
+//		}
+
 		while(toAdd.iterator().hasNext()) {
 			add(toAdd.iterator().next());
 		}
-
+		
 		return true;
 	}
 
@@ -241,8 +247,15 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 
 	@Override
 	public boolean hasNext() {
-		return iteratorIndex < (size());
+		if(iteratorIndex < size()){
+			return true;
 		}
+		
+		else {
+			iteratorIndex = 0;
+			return false;
+		}
+	}
 
 	@Override
 	public E next() throws NoSuchElementException {
@@ -258,13 +271,40 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 		return tempElement;
 	}
 
+	public String toString() {
+		
+//		StringBuilder returnString = new StringBuilder(this.next().toString());
+//
+//		while(this.hasNext()) {
+//			returnString.append(" ").append(this.next().toString());
+//		}
+		
+		Iterator<E> iterator = this.iterator();
+		StringBuilder returnString = new StringBuilder(iterator.next().toString());
+
+		while(iterator.hasNext()) {
+			returnString.append(" ").append(iterator.next().toString());
+		}
+		
+		return returnString.toString();
+	}
 
 
 	private class IteratorForMyArrayList implements Iterator<E> {
 		
+		private int innerClassIteratorIndex = 0;
+		
 		@Override
 		public boolean hasNext() {
-			return iteratorIndex < (size());
+			if(innerClassIteratorIndex >= size()){
+				innerClassIteratorIndex = 0;
+				return false;
+			}
+			
+			else {
+				
+				return true;
+			}
 		}
 
 		@Override
@@ -272,8 +312,8 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 			E tempElement;
 			
 			if(hasNext()) {
-				tempElement = array[iteratorIndex];
-				iteratorIndex++;
+				tempElement = array[innerClassIteratorIndex];
+				innerClassIteratorIndex++;
 			}
 			else {
 				throw new NoSuchElementException();
@@ -281,7 +321,7 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 			return tempElement;
 
 		}
-
+		
 	}
 
 
