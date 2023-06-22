@@ -259,7 +259,6 @@ class MyArrayListTests<E> {
 		//Test with EArray containing same number of elements as MyArrayList
 		//arrayOne and myArrayListOne both have 4 elements
 		assertEquals(arrayOne.length,myArrayListOne.size());
-		System.out.println(arrayOne.length + " vs " + myArrayListOne.size());
 		
 		assertNotEquals(arrayOne[0],myArrayListOne.get(0));
 		assertNotEquals(arrayOne[1],myArrayListOne.get(1));
@@ -272,17 +271,16 @@ class MyArrayListTests<E> {
 		assertEquals(arrayOne[1],myArrayListOne.get(1));
 		assertEquals(arrayOne[2],myArrayListOne.get(2));
 		assertEquals(arrayOne[3],myArrayListOne.get(3));
-		System.out.println(arrayOne[3] + " vs " + myArrayListOne.get(3));
 		
 		//Test with EArray containing fewer number of elements than MyArrayList
 		//arrayTwo has a length of 1, MyArrayListOne has 4 elements
 		assertNotEquals(arrayTwo.length,myArrayListOne.size());
-		myArrayListOne.toArray((E[])arrayTwo);
-		System.out.println(arrayTwo.length + " vs " + myArrayListOne.size());
+		arrayTwo = myArrayListOne.toArray((E[])arrayTwo);
 		assertEquals(arrayTwo.length,myArrayListOne.size());
 		assertEquals(arrayTwo[0],myArrayListOne.get(0));
 		assertEquals(arrayTwo[1],myArrayListOne.get(1));
-		
+		assertEquals(arrayTwo[2],myArrayListOne.get(2));
+		assertEquals(arrayTwo[3],myArrayListOne.get(3));
 	}
 
 	/**

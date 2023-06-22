@@ -1,5 +1,6 @@
 package main;
 
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
 import utilities.Iterator;
@@ -216,7 +217,8 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 		}
 
 		if (size > toHold.length) {
-			toHold = (E[]) new Object[size];
+			//toHold = (E[]) new Object[size];
+			toHold = (E[])Array.newInstance(toHold.getClass().getComponentType(), size);
 		}
 
 		for (int i = 0; i < size; i++) {
