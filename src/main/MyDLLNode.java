@@ -13,7 +13,6 @@ public class MyDLLNode<E> {
 	}
 	
 	public MyDLLNode(E element, MyDLLNode<E> prevNode, MyDLLNode<E> nextNode) {
-		//MyDLLNode<E> tempNext = prevNode.getNextNode();
 		this.element = element;
 		this.prevNode = prevNode;
 		this.nextNode = nextNode;
@@ -23,6 +22,8 @@ public class MyDLLNode<E> {
 	}
 
 	/**
+	 * Returns the next node in the list from the current node.
+	 * 
 	 * @return the nextNode
 	 */
 	public MyDLLNode<E> getNextNode() {
@@ -30,13 +31,17 @@ public class MyDLLNode<E> {
 	}
 
 	/**
-	 * @param nextNode the nextNode to set
+	 * Sets the next node in the list from the current node. 
+	 * 
+	 * @param nextNode the next MyDLLNode to the current node.
 	 */
 	public void setNextNode(MyDLLNode<E> nextNode) {
 		this.nextNode = nextNode;
 	}
 
 	/**
+	 * Returns the previous node in the list from the current node.
+	 * 
 	 * @return the prevNode
 	 */
 	public MyDLLNode<E> getPrevNode() {
@@ -44,13 +49,17 @@ public class MyDLLNode<E> {
 	}
 
 	/**
-	 * @param prevNode the prevNode to set
+	 * Sets the previous node in the list from the current node. 
+	 * 
+	 * @param prevNode the previous MyDLLNode to the current node.
 	 */
 	public void setPrevNode(MyDLLNode<E> prevNode) {
 		this.prevNode = prevNode;
 	}
 
 	/**
+	 * Returns the element contained in the MyDLLNode
+	 * 
 	 * @return the element
 	 */
 	public E getElement() {
@@ -58,7 +67,9 @@ public class MyDLLNode<E> {
 	}
 
 	/**
-	 * @param element the element to set
+	 * Sets the element to be contained in the MyDLLNode.
+	 * 
+	 * @param element the element to contained by the MyDLLNode
 	 */
 	public void setElement(E element) {
 		this.element = element;

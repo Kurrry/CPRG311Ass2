@@ -16,7 +16,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	
 	
 	/**
-	 * No-argument constructor
+	 * No-argument constructor for creating a MyDLL list.
 	 */
 	public MyDLL() {
 		this.head = null;
@@ -25,6 +25,13 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		itNode = new MyDLLNode<E>();
 	}
 	
+	/**
+	 * Constructor for MyDLL list which takes a node as the starting position and 
+	 * copies all elements from that node to the end of that list into a new MyDLL list.
+	 * 
+	 * @param head
+	 * 			The starting node from which to begin copying MyDLLNodes from until the end of the list.
+	 */
 	public MyDLL(MyDLLNode<E> head) {
 		
 		MyDLLNode<E> copiedNode = new MyDLLNode<E>(head.getElement());
@@ -43,6 +50,16 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		
 	}
 	
+	/**
+	 * Constructor for MyDLL list which takes in two nodes from an existing list, 
+	 * one as the starting node and one as the finishing node, and copies all nodes 
+	 * from those two positions into a new list. 
+	 * 
+	 * @param head
+	 * 			The starting node from which to begin copying into the new list.
+	 * @param tail
+	 * 			The final node which is copied into the new list.
+	 */
 	public MyDLL(MyDLLNode<E> head, MyDLLNode<E> tail) {
 		
 		MyDLLNode<E> copiedNode = new MyDLLNode<E>(head.getElement());
@@ -61,14 +78,20 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 	}
 
 	/**
+	 * Returns the first MyDLLNode of a list.
+	 * 
 	 * @return the head
+	 * 			The first node of the list.
 	 */
 	public MyDLLNode<E> getHead() {
 		return head;
 	}
 
 	/**
+	 * Returns the last MyDLLNode of a list.
+	 * 
 	 * @return the tail
+	 * 			The last node of the list.
 	 */
 	public MyDLLNode<E> getTail() {
 		return tail;
@@ -186,6 +209,18 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		return returnVal;
 	}
 	
+	/**
+	 * Returns the node at a given index of a list. Will throw an IndexOutOfBoundsException if 
+	 * the index is outside of the list.
+	 * 
+	 * @param index
+	 * 			The position in the list of a desired node. 0-index
+	 * @return The MyDLLNode at the index position of a given list.
+	 * @throws IndexOutOfBoundsException
+	 * 			If the index is out of range of list:
+	 * 				index < 0
+	 * 				index >= count
+	 */
 	public MyDLLNode<E> getNode(int index) throws IndexOutOfBoundsException {
 		if(index < 0 || index >= count) {
 			throw new IndexOutOfBoundsException();
