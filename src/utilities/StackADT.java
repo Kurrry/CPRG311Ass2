@@ -51,21 +51,21 @@ public interface StackADT<E> {
     public Iterator<E> iterator();
 
     /**
-     * Copies all the stack's elements into an array. The top of the stack is
+     * Copies all the stack's elements into an Object array. The top of the stack is
      * the first item in the array.
      *
-     * @return The array containing all the stack's elements in order.
+     * @return The Object array containing all the stack's elements in order.
      */
     public Object[] toArray();
 
     /**
      * Copies all the stack's elements into an array. The top of the stack is
-     * the first item in the array. The runtime type of the returned copied array is the
+     * the first item in the array. The class type of the returned copied array is the
      * same as the specified array.
      *
-     * @param copy Array where the stack will be copied to if large enough. If not, a new array
-     *             is allocated with the same runtime type.
-     * @return The array containing all the stack's elements in order.
+     * @param copy E Array where the stack will be copied to if large enough. If not, a new array
+     *             is allocated with the same class type.
+     * @return The E array containing all the stack's elements in order.
      * @throws NullPointerException when the specified array is null
      */
     public E[] toArray(E[] copy) throws NullPointerException;
@@ -103,7 +103,7 @@ public interface StackADT<E> {
     public boolean isEmpty();
 
     /**
-     * Clears all items in the stack.
+     * Clears all items in the stack from top to bottom.
      */
     public void clear();
 }
