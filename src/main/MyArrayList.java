@@ -42,9 +42,9 @@ public class MyArrayList<E> implements ListADT<E>, Iterator<E> {
 	 * 			The integer value for the specific size of the MyArrayList. 
 	 */
 	@SuppressWarnings("unchecked")
-	public MyArrayList(int initalSize) {
-		array = (E[]) new Object[initalSize];
-		capacity = initalSize;
+	public MyArrayList(int initialSize) {
+		array = (E[]) new Object[initialSize];
+		capacity = initialSize;
 		size = 0;
 	}
 

@@ -4,6 +4,7 @@ import exceptions.EmptyQueueException;
 import utilities.Iterator;
 import utilities.QueueADT;
 
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
 public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
@@ -80,7 +81,7 @@ public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
             throw new NullPointerException();
         }
         if (this.size() > copy.length) {
-            copy = (E[]) new Object[this.size()];
+            copy = (E[]) Array.newInstance(copy.getClass().getComponentType(), this.size());
         }
         MyDLLNode<E> current = this.getHead();
         for(int i = 0; i < this.size(); i++) {

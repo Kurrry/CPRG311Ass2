@@ -403,7 +403,7 @@ public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 		Iterator<E> it = this.iterator();
 		StringBuilder returnStr = new StringBuilder(it.next().toString());
 		while(it.hasNext()) {
-			returnStr.append(" " + it.next().toString());
+			returnStr.append(" ").append(it.next().toString());
 		}
 		return returnStr.toString();
 	}
