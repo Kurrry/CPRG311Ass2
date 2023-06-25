@@ -1,8 +1,13 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import exceptions.EmptyQueueException;
+import main.MyQueue;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utilities.Iterator;
+
+import java.util.NoSuchElementException;
 
 /**
  * 
@@ -12,13 +17,39 @@ import org.junit.jupiter.api.Test;
  * @author Eric
  *
  */
-class MyQueueTests {
+class MyQueueTests<E> {
+
+	MyQueue<E> queueOne, queueTwo, queueThree;
+
+	E element;
+
+	Object[] arrayOne, arrayTwo;
+	Iterator<E> iterator;
+	String testString = "String 0 String 1 String 2 String 3";
+	String testString2 = "String 1 String 2 String 3";
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
+		queueOne = new MyQueue<>();
+		queueTwo = new MyQueue<>();
+		queueThree = new MyQueue<>();
+
+		queueOne.enqueue((E) "String 0");
+		queueOne.enqueue((E) "String 1");
+		queueOne.enqueue((E) "String 2");
+		queueOne.enqueue((E) "String 3");
+
+		queueTwo.enqueue((E) "String Zero");
+		queueTwo.enqueue((E) "String One");
+		queueTwo.enqueue((E) "String Two");
+		queueTwo.enqueue((E) "String Three");
+
+		element = (E) "Some element";
+		arrayOne = new Object[4];
+		arrayTwo = new Object[1];
 	}
 
 	/**
@@ -26,126 +57,256 @@ class MyQueueTests {
 	 */
 	@AfterEach
 	void tearDown() throws Exception {
+		queueOne.dequeueAll();
+		queueTwo.dequeueAll();
+		if (queueThree != null) queueThree.dequeueAll();
+
+		element = null;
+		arrayOne = null;
+		arrayTwo = null;
+		iterator = null;
 	}
 
 	/**
-	 * Test method for {@link main.MyQueue#hasNext()}.
-	 */
-	@Test
-	void testHasNext() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link main.MyQueue#next()}.
-	 */
-	@Test
-	void testNext() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link main.MyQueue#size()}.
-	 */
-	@Test
-	void testSize() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link main.MyQueue#isEmpty()}.
-	 */
-	@Test
-	void testIsEmpty() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link main.MyQueue#toArray(E[])}.
-	 */
-	@Test
-	void testToArrayEArray() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link main.MyQueue#toArray()}.
-	 */
-	@Test
-	void testToArray() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link main.MyQueue#iterator()}.
-	 */
-	@Test
-	void testIterator() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link main.MyQueue#toString()}.
-	 */
-	@Test
-	void testToString() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link main.MyQueue#MyQueue()}.
+	 * Test if a new queue exists and is empty
 	 */
 	@Test
 	void testMyQueue() {
-		fail("Not yet implemented");
+		assertNull(queueThree.getHead());
+		assertEquals(0, queueThree.size());
 	}
 
 	/**
-	 * Test method for {@link main.MyQueue#enqueue(java.lang.Object)}.
+	 * Test if a queue with elements in it has a next element
+	 */
+	@Test
+	void testHasNextTrue() {
+		assertTrue(queueOne.hasNext());
+	}
+
+	/**
+	 * Test if an empty queue has no next
+	 */
+	@Test
+	void testHasNextFalse() {
+
+		assertFalse(queueThree.hasNext());
+	}
+
+	/**
+	 * Test if next will return the expected value
+	 */
+	@Test
+	void testNext() {
+		assertEquals("String 0", queueOne.next());
+	}
+
+	/**
+	 * Test the size of a queue to have the expected number of elements
+	 */
+	@Test
+	void testSize() {
+		assertEquals(4, queueOne.size());
+	}
+
+	/**
+	 * Test if a queue with elements in it is not empty
+	 */
+	@Test
+	void testIsNotEmpty() {
+		assertFalse(queueOne.isEmpty());
+	}
+
+	/**
+	 * Test if an empty queue is empty
+	 */
+	@Test
+	void testIsEmpty() {
+		assertTrue(queueThree.isEmpty());
+	}
+
+	/**
+	 * Test if we can copy an E array of Same size as our queue
+	 */
+	@Test
+	void testToArrayEArraySameSize() {
+		assertEquals(arrayOne.length, queueOne.size());
+		assertNotEquals(arrayOne[0], queueOne.get(0));
+		assertNotEquals(arrayOne[1], queueOne.get(1));
+		assertNotEquals(arrayOne[2], queueOne.get(2));
+		assertNotEquals(arrayOne[3], queueOne.get(3));
+
+		arrayOne = queueOne.toArray((E[]) arrayOne);
+		assertEquals(arrayOne[0], queueOne.get(0));
+		assertEquals(arrayOne[1], queueOne.get(1));
+		assertEquals(arrayOne[2], queueOne.get(2));
+		assertEquals(arrayOne[3], queueOne.get(3));
+	}
+
+	/**
+	 * Test if we can copy an E array of different size as our queue
+	 */
+	@Test
+	void testToArrayEArrayDiffSize() {
+		assertNotEquals(arrayTwo.length, queueOne.size());
+
+		arrayTwo = queueOne.toArray((E[]) arrayTwo);
+		assertEquals(arrayTwo.length, queueOne.size());
+		assertEquals(arrayTwo[0], queueOne.get(0));
+		assertEquals(arrayTwo[1], queueOne.get(1));
+		assertEquals(arrayTwo[2], queueOne.get(2));
+		assertEquals(arrayTwo[3], queueOne.get(3));
+	}
+
+	/**
+	 * Test if we can copy an Object array of different size as our queue
+	 */
+	@Test
+	void testToArrayDiffSize() {
+		assertNotEquals(arrayTwo.length, queueOne.size());
+		arrayTwo = queueOne.toArray();
+		assertEquals(arrayTwo.length, queueOne.size());
+		assertEquals(arrayTwo[0], queueOne.get(0));
+		assertEquals(arrayTwo[1], queueOne.get(1));
+		assertEquals(arrayTwo[2], queueOne.get(2));
+		assertEquals(arrayTwo[3], queueOne.get(3));
+	}
+
+	/**
+	 * Test if we can copy an Object array of same size as our queue
+	 */
+	@Test
+	void testToArraySameSize() {
+		assertEquals(arrayOne.length, queueOne.size());
+		arrayOne = queueOne.toArray();
+		assertEquals(arrayOne.length, queueOne.size());
+		assertEquals(arrayOne[0], queueOne.get(0));
+		assertEquals(arrayOne[1], queueOne.get(1));
+		assertEquals(arrayOne[2], queueOne.get(2));
+		assertEquals(arrayOne[3], queueOne.get(3));
+	}
+
+	/**
+	 * Test if iterator iterates through list and returns false at end of list
+	 */
+	@Test
+	void testIterator() {
+		iterator = queueOne.iterator();
+		assertEquals(iterator.next(), queueOne.next());
+		assertEquals(iterator.next(), queueOne.next());
+		assertEquals(iterator.next(), queueOne.next());
+		assertEquals(iterator.next(), queueOne.next());
+		assertFalse(iterator.hasNext());
+		assertFalse(queueOne.hasNext());
+	}
+
+	/**
+	 * Test if the queue can be turned into a string
+	 */
+	@Test
+	void testToString() {
+		assertEquals(testString, queueOne.toString());
+	}
+
+	/**
+	 * Test if we can add an element to the end of the queue
 	 */
 	@Test
 	void testEnqueue() {
-		fail("Not yet implemented");
+		assertEquals(testString, queueOne.toString());
+		queueOne.enqueue((E) "String 4");
+		testString = testString + " String 4";
+		assertEquals(testString, queueOne.toString());
 	}
 
 	/**
-	 * Test method for {@link main.MyQueue#dequeue()}.
+	 * Test if we can dequeue the first element in the queue
+	 * @Throws EmptyQueueException if the queue is empty. This should not happen.
 	 */
 	@Test
-	void testDequeue() {
-		fail("Not yet implemented");
+	void testDequeueNoEx() throws EmptyQueueException {
+		assertEquals(testString, queueOne.toString());
+		queueOne.dequeue();
+		assertEquals(testString2, queueOne.toString());
 	}
 
 	/**
-	 * Test method for {@link main.MyQueue#peek()}.
+	 * Test if we get an exception while dequeue the first element in empty queue
+	 * @Throws EmptyQueueException if the queue is empty. This should happen.
 	 */
 	@Test
-	void testPeek() {
-		fail("Not yet implemented");
+	void testDequeueEx() {
+		try {
+			queueThree.dequeue();
+			fail("Queue had element");
+		} catch (EmptyQueueException ex) {
+			assertTrue(true);
+		}
 	}
 
 	/**
-	 * Test method for {@link main.MyQueue#equals(utilities.QueueADT)}.
+	 * Test if we can peek at the first element in the queue
+	 * @Throws EmptyQueueException if the queue is empty. This should not happen.
 	 */
 	@Test
-	void testEqualsQueueADTOfE() {
-		fail("Not yet implemented");
+	void testPeekNoEx() throws EmptyQueueException {
+		assertEquals("String 0", queueOne.peek());
 	}
 
 	/**
-	 * Test method for {@link main.MyQueue#isFull()}.
+	 * Test if we cannot peek at the first element in empty queue
+	 * @Throws EmptyQueueException if the queue is empty. This should happen.
+	 */
+	@Test
+	void testPeekEx() {
+		try {
+			queueThree.peek();
+			fail("Queue had element");
+		} catch (EmptyQueueException ex) {
+			assertTrue(true);
+		}
+	}
+
+	/**
+	 * Test if two queues are equal to each other
+	 */
+	@Test
+	void testEqualsQueueADTOfEPass() {
+		queueThree = queueOne;
+		assertTrue(queueOne.equals(queueThree));
+	}
+
+	/**
+	 * Test if two queues are not equal to each other
+	 */
+	@Test
+	void testEqualsQueueADTOfEFail() {
+		assertFalse(queueOne.equals(queueTwo));
+	}
+
+	/**
+	 * Test if a queue with elements is full
+	 * In this case full means that the list as a number of elements greater than 0
 	 */
 	@Test
 	void testIsFull() {
-		fail("Not yet implemented");
+		assertTrue(queueOne.isFull());
 	}
 
 	/**
-	 * Test method for {@link main.MyQueue#dequeueAll()}.
+	 * Test if a queue with elements has all its elements dequeued
+	 * @Throws EmptyQueueException if the queue is empty, and we try to peek. This should happen.
 	 */
 	@Test
 	void testDequeueAll() {
-		fail("Not yet implemented");
+		try {
+			assertNotNull(queueOne);
+			queueOne.dequeueAll();
+			queueOne.peek();
+			fail("Queue not empty");
+		} catch (EmptyQueueException ex) {
+			assertTrue(true);
+		}
 	}
 
 }
