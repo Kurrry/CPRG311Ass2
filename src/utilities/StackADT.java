@@ -1,7 +1,6 @@
 package utilities;
 
 import java.util.EmptyStackException;
-import java.util.Iterator;
 
 /**
  * Stack interface.
