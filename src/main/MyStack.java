@@ -77,15 +77,15 @@ public class MyStack<E> extends MyArrayList<E> implements StackADT<E>, Iterator<
         super.clear();
     }
 
-//    @Override
-//    public Object[] toArray() {
-//        return null;
-//    }
-//
-//    @Override
-//    public E[] toArray(E[] copy) throws NullPointerException {
-//        return null;
-//    }
+    @Override
+    public Object[] toArray() {
+        return super.toArray();
+    }
+
+    @Override
+    public E[] toArray(E[] copy) throws NullPointerException {
+        return super.toArray(copy);
+    }
 
     @Override
     public String toString() {
