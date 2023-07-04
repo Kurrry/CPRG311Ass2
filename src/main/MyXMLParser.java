@@ -17,13 +17,11 @@ public class MyXMLParser {
     }
 
     private void pushStartTag(String tag) {
-        if(checkTagType(tag)) return;
         String tempTag = tag.replaceAll("[<>]", "");
         stack.push(tag.substring(1, tag.indexOf(' ')));
     }
 
     private void checkEndTag(String tag) {
-        if(!checkTagType(tag)) return;
         String tempError = "";
         String tempTag = tag.replaceAll("[<>/]", "");
         String tempStackHead = stack.peek()
