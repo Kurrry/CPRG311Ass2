@@ -17,13 +17,13 @@ public class MyXMLParser {
     }
 
     private void pushStartTag(String tag) {
-        if(tag.charAt(1) != '/'){
-            String tempTag = tag.replaceAll("[<>]", "");
-            stack.push(tag.substring(1, tag.indexOf(' ')));
-        }
+        if(checkTagType(tag)) return;
+        String tempTag = tag.replaceAll("[<>]", "");
+        stack.push(tag.substring(1, tag.indexOf(' ')));
     }
 
     private void checkEndTag(String tag) {
+        if(!checkTagType(tag)) return;
         String tempError = "";
         String tempTag = tag.replaceAll("[<>/]", "");
         String tempStackHead = stack.peek()
@@ -42,7 +42,8 @@ public class MyXMLParser {
             else {
                 boolean matchFound = false;
                 for(int i = 0; i < stack.size() - 1; i++) {
-                    if(stack.get(i).equals(tempTag)) {
+                    String compareString = stack.get(i).substring(0, ' ');
+                    if(compareString.equals(tempTag)) {
                         for(int j = 0; j <= i; j++) {
                             errorQ.enqueue(stack.pop());
                         }
@@ -55,5 +56,15 @@ public class MyXMLParser {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * return true if the second character in the string is /
+     * if true the tag is a closing tag
+     * @param tag
+     * @return true if second character is /
+     */
+    private boolean checkTagType(String tag) {
+        return tag.charAt(1) == '/';
     }
 }
