@@ -46,6 +46,7 @@ public class MyXMLParser {
                             errorQ.enqueue(stack.pop());
                         }
                         stack.pop();
+                        matchFound = true;
                         break;
                     }
                 }
