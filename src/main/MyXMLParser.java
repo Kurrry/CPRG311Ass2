@@ -65,7 +65,6 @@ public class MyXMLParser {
         while (stack.hasNext()) {
             errorQ.enqueue(stack.pop());
         }
-        if(stack.size() == 1) errorQ.enqueue(stack.pop());
     }
 
     private void cleanQueue() {
