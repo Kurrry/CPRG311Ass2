@@ -38,19 +38,67 @@ public class MyXMLParser {
             else if (!errorQ.isEmpty() && tempTag.equals(tempError)) errorQ.dequeue();
             else if (stack.isEmpty()) errorQ.enqueue(tag);
             else {
+                int index = 0;
                 boolean matchFound = false;
-                for(int i = 0; i < stack.size() - 1; i++) {
-                    String compareString = stack.get(i).substring(0, ' ');
+                while(stack.hasNext()) {
+                    String compareString = stack.get(index).substring(0, ' ');
                     if(compareString.equals(tempTag)) {
-                        for(int j = 0; j <= i; j++) {
-                            errorQ.enqueue(stack.pop());
-                        }
-                        stack.pop();
                         matchFound = true;
                         break;
                     }
+                    stack.next();
+                    index++;
                 }
-                if(!matchFound) extraQ.enqueue(tag);
+                if (matchFound) {
+                    for (int j = 0; j < index; j++) {
+                        errorQ.enqueue(stack.pop());
+                    }
+                    stack.pop();
+                } else extraQ.enqueue(tag);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void cleanStack() {
+        while (stack.hasNext()) {
+            errorQ.enqueue(stack.pop());
+        }
+        if(stack.size() == 1) errorQ.enqueue(stack.pop());
+    }
+
+    private void cleanQueue() {
+        boolean errorQEmpty = errorQ.size() == 0;
+
+        if(errorQEmpty) {
+            extraQ.dequeueAll();
+        } else {
+            errorQ.dequeueAll();
+        }
+    }
+
+    private void cleanBothQueues() {
+        try {
+            while (errorQ.size() > 0 && extraQ.size() > 0) {
+                String errorQTag = errorQ.peek().replaceAll("[<>/]", "");
+                String extraQTag = extraQ.peek().replaceAll("[<>/]", "");
+                boolean compareTag = errorQTag.equals(extraQTag);
+
+                if (compareTag) {
+                    errorQ.dequeue();
+                    extraQ.dequeue();
+                } else {
+                    System.out.println(errorQ.dequeue());
+                }
+            }
+
+            if (errorQ.size() > 0) {
+                errorQ.dequeueAll();
+            }
+
+            if (extraQ.size() > 0) {
+                extraQ.dequeueAll();
             }
         } catch (Exception ex) {
             ex.printStackTrace();
