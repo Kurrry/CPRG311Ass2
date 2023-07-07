@@ -1,8 +1,8 @@
-package main;
+package datastructures;
 
 import exceptions.EmptyQueueException;
-import utilities.Iterator;
-import utilities.QueueADT;
+import interfaces.Iterator;
+import interfaces.QueueADT;
 
 import java.lang.reflect.Array;
 import java.util.NoSuchElementException;

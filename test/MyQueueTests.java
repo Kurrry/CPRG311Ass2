@@ -1,13 +1,11 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import exceptions.EmptyQueueException;
-import main.MyQueue;
+import datastructures.MyQueue;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utilities.Iterator;
-
-import java.util.NoSuchElementException;
+import interfaces.Iterator;
 
 /**
  * 

@@ -1,10 +1,10 @@
-package main;
+package datastructures;
 
 import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
-import utilities.Iterator;
-import utilities.ListADT;
+import interfaces.Iterator;
+import interfaces.ListADT;
 
 /**
  *  The MyArrayList class is a dynamic array which expands in capacity as the size of the MyArrayList increases.

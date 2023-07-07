@@ -1,12 +1,13 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import datastructures.MyDLL;
+import datastructures.MyDLLNode;
+import interfaces.ListADT;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import main.MyDLL;
-import main.MyDLLNode;
-import utilities.Iterator;
+import interfaces.Iterator;
 
 import java.util.NoSuchElementException;
 
@@ -95,7 +96,7 @@ class MyDLLTests<E> {
 	// Tests for MyDLLNode
 	
 	/**
-	 * Test method for {@link main.MyDLLNode#MyDLLNode(java.lang.Object)}.
+	 * Test method for {@link MyDLLNode#MyDLLNode(java.lang.Object)}.
 	 */
 	@Test
 	void testMyDLLNode() {
@@ -105,7 +106,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLLNode#MyDLLNode(java.lang.Object)}.
+	 * Test method for {@link MyDLLNode#MyDLLNode(java.lang.Object)}.
 	 */
 	@Test
 	void testMyDLLNodeE() {
@@ -115,7 +116,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLLNode#MyDLLNode(java.lang.Object, main.MyDLLNode, main.MyDLLNode)}.
+	 * Test method for {@link MyDLLNode#MyDLLNode(java.lang.Object, MyDLLNode, MyDLLNode)}.
 	 */
 	@Test
 	void testMyDLLNodeEMyDLLNodeOfEMyDLLNodeOfE() {
@@ -127,7 +128,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLLNode#getNextNode()}.
+	 * Test method for {@link MyDLLNode#getNextNode()}.
 	 */
 	@Test
 	void testGetSetNextNode() {
@@ -136,7 +137,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLLNode#getPrevNode()}.
+	 * Test method for {@link MyDLLNode#getPrevNode()}.
 	 */
 	@Test
 	void testGetSetPrevNode() {
@@ -145,7 +146,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLLNode#getElement()}.
+	 * Test method for {@link MyDLLNode#getElement()}.
 	 */
 	@Test
 	void testGetElement() {
@@ -153,7 +154,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLLNode#setElement(java.lang.Object)}.
+	 * Test method for {@link MyDLLNode#setElement(java.lang.Object)}.
 	 */
 	@Test
 	void testSetElement() {
@@ -169,7 +170,7 @@ class MyDLLTests<E> {
 	// Tests for MyDLL
 	
 	/**
-	 * Test method for {@link main.MyDLL#MyDLL(main.MyDLLNode)}.
+	 * Test method for {@link MyDLL#MyDLL(MyDLLNode)}.
 	 */
 	@Test
 	void testMyDLL() {
@@ -179,7 +180,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#MyDLL(main.MyDLLNode)}.
+	 * Test method for {@link MyDLL#MyDLL(MyDLLNode)}.
 	 */
 	@Test
 	void testMyDLLMyDLLNodeOfE() {
@@ -192,7 +193,7 @@ class MyDLLTests<E> {
 	}
 		
 	/**
-	 * Test method for {@link main.MyDLL#MyDLL(main.MyDLLNode, main.MyDLLNode)}.
+	 * Test method for {@link MyDLL#MyDLL(MyDLLNode, MyDLLNode)}.
 	 */
 	@Test
 	void testMyDLLMyDLLNodeOfEMyDLLNodeOfE() {
@@ -202,7 +203,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#getHead()}.
+	 * Test method for {@link MyDLL#getHead()}.
 	 */
 	@Test
 	void testGetHead() {
@@ -211,7 +212,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#getTail()}.
+	 * Test method for {@link MyDLL#getTail()}.
 	 */
 	@Test
 	void testGetTail() {
@@ -220,7 +221,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#hasNext()}.
+	 * Test method for {@link MyDLL#hasNext()}.
 	 */
 	@Test
 	void testHasNext() {
@@ -230,7 +231,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#next()}.
+	 * Test method for {@link MyDLL#next()}.
 	 */
 	@Test
 	void testNextFailNull() {
@@ -243,7 +244,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#next()}.
+	 * Test method for {@link MyDLL#next()}.
 	 */
 	@Test
 	void testNext() {
@@ -253,7 +254,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#size()}.
+	 * Test method for {@link MyDLL#size()}.
 	 */
 	@Test
 	void testSize() {
@@ -264,7 +265,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#clear()}.
+	 * Test method for {@link MyDLL#clear()}.
 	 */
 	@Test
 	void testClear() {
@@ -275,7 +276,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testAddIntE() {
@@ -296,7 +297,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testAddIntEEmpty() {
@@ -313,7 +314,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testAddIntEHead() {
@@ -330,7 +331,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testAddIntETail() {
@@ -347,7 +348,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testAddIntEFailOOB() {
@@ -367,7 +368,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testAddIntEFailNull() {
@@ -380,7 +381,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(java.lang.Object)}.
 	 */
 	@Test
 	void testAddE() {
@@ -397,7 +398,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testAddEFailNull() {
@@ -410,7 +411,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#addAll(utilities.ListADT)}.
+	 * Test method for {@link MyDLL#addAll(ListADT)}.
 	 */
 	@Test
 	void testAddAll() {
@@ -423,7 +424,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testAddAllFailNull() {
@@ -436,7 +437,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#get(int)}.
+	 * Test method for {@link MyDLL#get(int)}.
 	 */
 	@Test
 	void testGet() {
@@ -446,7 +447,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testGetFailOOB() {
@@ -466,7 +467,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#get(int)}.
+	 * Test method for {@link MyDLL#get(int)}.
 	 */
 	@Test
 	void testGetNode() {
@@ -476,7 +477,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testGetNodeFailOOB() {
@@ -496,7 +497,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#remove(int)}.
+	 * Test method for {@link MyDLL#remove(int)}.
 	 */
 	@Test
 	void testRemoveIntOneEle() {	
@@ -509,7 +510,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#remove(int)}.
+	 * Test method for {@link MyDLL#remove(int)}.
 	 */
 	@Test
 	void testRemoveInt() {	
@@ -522,7 +523,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#remove(int)}.
+	 * Test method for {@link MyDLL#remove(int)}.
 	 */
 	@Test
 	void testRemoveIntHead() {
@@ -535,7 +536,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#remove(int)}.
+	 * Test method for {@link MyDLL#remove(int)}.
 	 */
 	@Test
 	void testRemoveIntTail() {
@@ -548,7 +549,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testRemoveIntFailOOB() {
@@ -568,7 +569,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#remove(java.lang.Object)}.
+	 * Test method for {@link MyDLL#remove(java.lang.Object)}.
 	 */
 	@Test
 	void testRemoveE() {
@@ -582,7 +583,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#remove(java.lang.Object)}.
+	 * Test method for {@link MyDLL#remove(java.lang.Object)}.
 	 */
 	@Test
 	void testRemoveEOneEle() {
@@ -596,7 +597,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#remove(java.lang.Object)}.
+	 * Test method for {@link MyDLL#remove(java.lang.Object)}.
 	 */
 	@Test
 	void testRemoveEHead() {
@@ -610,7 +611,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#remove(java.lang.Object)}.
+	 * Test method for {@link MyDLL#remove(java.lang.Object)}.
 	 */
 	@Test
 	void testRemoveETail() {
@@ -624,7 +625,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#remove(java.lang.Object)}.
+	 * Test method for {@link MyDLL#remove(java.lang.Object)}.
 	 */
 	@Test
 	void testRemoveEInexistant() {
@@ -638,7 +639,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testRemoveEFailNull() {
@@ -651,7 +652,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#set(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#set(int, java.lang.Object)}.
 	 */
 	@Test
 	void testSet() {
@@ -662,7 +663,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#set(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#set(int, java.lang.Object)}.
 	 */
 	@Test
 	void testSetHead() {
@@ -673,7 +674,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#set(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#set(int, java.lang.Object)}.
 	 */
 	@Test
 	void testSetTail() {
@@ -685,7 +686,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testSetFailNull() {
@@ -698,7 +699,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testSetFailOOB() {
@@ -718,7 +719,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#isEmpty()}.
+	 * Test method for {@link MyDLL#isEmpty()}.
 	 */
 	@Test
 	void testIsEmpty() {
@@ -728,7 +729,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#contains(java.lang.Object)}.
+	 * Test method for {@link MyDLL#contains(java.lang.Object)}.
 	 */
 	@Test
 	void testContains() {
@@ -738,7 +739,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testContainsFailNull() {
@@ -751,7 +752,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#toArray(E[])}.
+	 * Test method for {@link MyDLL#toArray(E[])}.
 	 */
 	@Test
 	void testToArrayEArray() {
@@ -761,7 +762,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#toArray(E[])}.
+	 * Test method for {@link MyDLL#toArray(E[])}.
 	 */
 	@Test
 	void testToArrayEArraySmallArr() {
@@ -773,7 +774,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#toArray(E[])}.
+	 * Test method for {@link MyDLL#toArray(E[])}.
 	 */
 	@Test
 	void testToArrayEArrayNoEle() {
@@ -783,7 +784,7 @@ class MyDLLTests<E> {
 	}
 	
 	/**
-	 * Test method for {@link main.MyDLL#add(int, java.lang.Object)}.
+	 * Test method for {@link MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testToArrayEArrayFailNull() {
@@ -796,7 +797,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#toArray()}.
+	 * Test method for {@link MyDLL#toArray()}.
 	 */
 	@Test
 	void testToArray() {
@@ -808,7 +809,7 @@ class MyDLLTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyDLL#iterator()}.
+	 * Test method for {@link MyDLL#iterator()}.
 	 */
 	@Test
 	void testIterator() {

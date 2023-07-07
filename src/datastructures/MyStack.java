@@ -1,7 +1,7 @@
-package main;
+package datastructures;
 
-import utilities.Iterator;
-import utilities.StackADT;
+import interfaces.Iterator;
+import interfaces.StackADT;
 
 import java.util.EmptyStackException;
 

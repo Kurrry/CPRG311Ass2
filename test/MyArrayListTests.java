@@ -1,13 +1,12 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import datastructures.MyArrayList;
+import interfaces.ListADT;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import main.MyArrayList;
-import utilities.Iterator;
-
-import java.util.NoSuchElementException;
+import interfaces.Iterator;
 
 /**
  * 
@@ -69,7 +68,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#MyArrayList()}.
+	 * Test method for {@link MyArrayList#MyArrayList()}.
 	 */
 	@Test
 	void testMyArrayList() {
@@ -80,7 +79,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#MyArrayList(int)}.
+	 * Test method for {@link MyArrayList#MyArrayList(int)}.
 	 */
 	@Test
 	void testMyArrayListInt() {
@@ -93,7 +92,7 @@ class MyArrayListTests<E> {
 //	 MyArrayList.shiftRight() is a private method, will no longer be tested after confirming it works properly.
 //	
 //	/**
-//	 * Test method for {@link main.MyArrayList#shiftRight(int)}.
+//	 * Test method for {@link datastructures.MyArrayList#shiftRight(int)}.
 //	 */
 //	@Test
 //	void testShiftRight() {
@@ -108,7 +107,7 @@ class MyArrayListTests<E> {
 //  MyArrayList.shiftLeft() is a private method, will no longer be tested after confirming it works properly.  
 //
 //	/**
-//	 * Test method for {@link main.MyArrayList#shiftLeft(int)}.
+//	 * Test method for {@link datastructures.MyArrayList#shiftLeft(int)}.
 //	 */
 //	@Test
 //	void testShiftLeft() {
@@ -123,7 +122,7 @@ class MyArrayListTests<E> {
 //	MyArrayList.increaseCap() is a private method, will no longer be tested after confirming it works properly.   
 //	
 //	/**
-//	 * Test method for {@link main.MyArrayList#increaseCap()}.
+//	 * Test method for {@link datastructures.MyArrayList#increaseCap()}.
 //	 */
 //	@Test
 //	void testIncreaseCap() {
@@ -143,7 +142,7 @@ class MyArrayListTests<E> {
 //	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#size()}.
+	 * Test method for {@link MyArrayList#size()}.
 	 */
 	@Test
 	void testSize() {
@@ -152,7 +151,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#clear()}.
+	 * Test method for {@link MyArrayList#clear()}.
 	 */
 	@Test
 	void testClear() {
@@ -162,7 +161,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#add(int, java.lang.Object)}.
+	 * Test method for {@link MyArrayList#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testAddIntE() {
@@ -171,7 +170,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#add(java.lang.Object)}.
+	 * Test method for {@link MyArrayList#add(java.lang.Object)}.
 	 */
 	@Test
 	void testAddE() {
@@ -179,7 +178,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#addAll(utilities.ListADT)}.
+	 * Test method for {@link MyArrayList#addAll(ListADT)}.
 	 */
 	@Test
 	void testAddAll() {
@@ -193,7 +192,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#get(int)}.
+	 * Test method for {@link MyArrayList#get(int)}.
 	 */
 	@Test
 	void testGet() {
@@ -201,7 +200,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#remove(int)}.
+	 * Test method for {@link MyArrayList#remove(int)}.
 	 */
 	@Test
 	void testRemoveInt() {
@@ -215,7 +214,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#remove(java.lang.Object)}.
+	 * Test method for {@link MyArrayList#remove(java.lang.Object)}.
 	 */
 	@Test
 	void testRemoveE() {
@@ -226,7 +225,7 @@ class MyArrayListTests<E> {
 		}
 
 	/**
-	 * Test method for {@link main.MyArrayList#set(int, java.lang.Object)}.
+	 * Test method for {@link MyArrayList#set(int, java.lang.Object)}.
 	 */
 	@Test
 	void testSet() {
@@ -235,7 +234,7 @@ class MyArrayListTests<E> {
 		}
 
 	/**
-	 * Test method for {@link main.MyArrayList#isEmpty()}.
+	 * Test method for {@link MyArrayList#isEmpty()}.
 	 */
 	@Test
 	void testIsEmpty() {
@@ -244,7 +243,7 @@ class MyArrayListTests<E> {
 		}
 
 	/**
-	 * Test method for {@link main.MyArrayList#contains(java.lang.Object)}.
+	 * Test method for {@link MyArrayList#contains(java.lang.Object)}.
 	 */
 	@Test
 	void testContains() {
@@ -252,7 +251,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#toArray(E[])}.
+	 * Test method for {@link MyArrayList#toArray(E[])}.
 	 */
 	@Test
 	void testToArrayEArray() {
@@ -284,7 +283,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#toArray()}.
+	 * Test method for {@link MyArrayList#toArray()}.
 	 */
 	@Test
 	void testToArray() {
@@ -298,7 +297,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#iterator()}.
+	 * Test method for {@link MyArrayList#iterator()}.
 	 */
 	@Test
 	void testIterator() {
@@ -312,7 +311,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#hasNext()}.
+	 * Test method for {@link MyArrayList#hasNext()}.
 	 */
 	@Test
 	void testHasNext() {
@@ -323,7 +322,7 @@ class MyArrayListTests<E> {
 	}
 
 	/**
-	 * Test method for {@link main.MyArrayList#next()}.
+	 * Test method for {@link MyArrayList#next()}.
 	 */
 	@Test
 	void testNext() {

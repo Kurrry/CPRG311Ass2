@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import main.MyStack;
+import datastructures.MyStack;
 
 public class MyStackTests<E> {
 
