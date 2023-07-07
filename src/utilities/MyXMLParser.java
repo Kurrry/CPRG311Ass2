@@ -28,23 +28,16 @@ public class MyXMLParser {
     private void pushStartTag(String tag) {
         String tempTag = tag.replaceAll("[<>]", "");
         try {
-            stack.push(tag.substring(1, tag.indexOf(' ')).trim());
+            stack.push(tempTag.substring(1, tag.indexOf(' ')).trim());
         } catch (StringIndexOutOfBoundsException ex) {
-            stack.push(tag.trim());
+            stack.push(tempTag.trim());
         }
     }
 
     private void checkEndTag(String tag) {
-        //String tempError = "";
         String tempTag = tag.replaceAll("[<>/]", "");
         String tempStackHead = stack.peek()
                 .replaceAll("[<>/]", "");
-        /*try {
-             tempError = errorQ.peek()
-                    .replaceAll("[<>/]", "");
-        } catch (EmptyQueueException ex) {
-            ex.printStackTrace();
-        }*/
 
         try {
             if (tempTag.equals(tempStackHead)){
