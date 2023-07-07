@@ -89,8 +89,10 @@ public class MyXMLParser {
         boolean errorQEmpty = errorQ.size() == 0;
 
         if(errorQEmpty) {
+            System.out.println("extraQ purge");
             extraQ.dequeueAll();
         } else {
+            System.out.println("errorQ purge");
             errorQ.dequeueAll();
         }
     }
@@ -106,15 +108,17 @@ public class MyXMLParser {
                     errorQ.dequeue();
                     extraQ.dequeue();
                 } else {
-                    System.out.println(errorQ.dequeue());
+                    System.out.println(errorQ.dequeue() + ": is error");
                 }
             }
 
             if (errorQ.size() > 0) {
+                System.out.println("errorQ purge both queues");
                 errorQ.dequeueAll();
             }
 
             if (extraQ.size() > 0) {
+                System.out.println("extraQ purge both queues");
                 extraQ.dequeueAll();
             }
         } catch (Exception ex) {
