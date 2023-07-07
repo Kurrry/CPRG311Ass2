@@ -28,7 +28,7 @@ public class MyXMLParser {
     private void pushStartTag(String tag) {
         String tempTag = tag.replaceAll("[<>]", "");
         try {
-            stack.push(tempTag.substring(1, tag.indexOf(' ')).trim());
+            stack.push(tempTag.substring(0, tag.indexOf(' ')).trim());
         } catch (StringIndexOutOfBoundsException ex) {
             stack.push(tempTag.trim());
         }
@@ -48,7 +48,7 @@ public class MyXMLParser {
                 errorQ.dequeue();
             }
             else if (stack.isEmpty()) {
-                errorQ.enqueue(tag.trim());
+                errorQ.enqueue(tempTag.trim());
             }
             else {
                 int index = 0;
@@ -145,7 +145,8 @@ public class MyXMLParser {
             String line;
             line = br.readLine();
             while ((line = br.readLine()) != null) {
-                if(!isProperFormat(line.trim().replaceAll("\t", ""))) {
+                line = line.trim().replaceAll("\t", "");
+                if(!isProperFormat(line)) {
                     System.out.println(line + ": is not in proper XML tag format.");
                     continue;
                 }
