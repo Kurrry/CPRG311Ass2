@@ -1,6 +1,5 @@
 package utilities;
 
-import datastructures.MyArrayList;
 import datastructures.MyQueue;
 import datastructures.MyStack;
 import exceptions.EmptyQueueException;
@@ -8,11 +7,20 @@ import exceptions.EmptyQueueException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+/**
+ * basic implementation of an XML parser. parser prefers tags in a line by line structure.
+ * will display any tags that are improperly structured in the supplied file.
+ */
 public class MyXMLParser {
     MyQueue<String> errorQ;
     MyQueue<String> extraQ;
     MyStack<String> stack;
     String fileName;
+
+    /**
+     * MyXMLParser constructor
+     * @param args command line arguments containing XML file
+     */
     public MyXMLParser(String[] args) {
         errorQ = new MyQueue<>();
         extraQ = new MyQueue<>();
@@ -21,10 +29,19 @@ public class MyXMLParser {
         parseXMLFile();
     }
 
+    /**
+     * check if a tag is self-closing
+     * @param tag tag to be checked
+     * @return true if the tag is self-closing
+     */
     private boolean isSelfClosingTag(String tag) {
         return tag.charAt(tag.length() - 2) == '/';
     }
 
+    /**
+     * push a start tag onto the stack
+     * @param tag to be pushed to the stack
+     */
     private void pushStartTag(String tag) {
         String tempTag = tag.replaceAll("[<>]", "");
         try {
@@ -34,6 +51,11 @@ public class MyXMLParser {
         }
     }
 
+    /**
+     * check if an end tag has a corresponding start tag in the stack
+     * if there is no matching tag, the param tag will be added to the errorQ or extraQ
+     * @param tag end tag to be checked
+     */
     private void checkEndTag(String tag) {
         String tempTag = tag.replaceAll("[<>/]", "");
         String tempStackHead = stack.peek()
@@ -79,12 +101,18 @@ public class MyXMLParser {
         }
     }
 
+    /**
+     * remove any tags remaining in stack and add them to errorQ
+     */
     private void cleanStack() {
         while (stack.hasNext()) {
             errorQ.enqueue(stack.pop().trim());
         }
     }
 
+    /**
+     * if one queue has items in it, but not both queues, dequeue all items in that queue
+     */
     private void cleanQueue() {
         boolean errorQEmpty = errorQ.size() == 0;
 
@@ -97,6 +125,11 @@ public class MyXMLParser {
         }
     }
 
+    /**
+     * clean both queues if they have items in them
+     * check if the queues have matching tags in them
+     * clear queue with any remaining elements at the end of comparison
+     */
     private void cleanBothQueues() {
         try {
             while (errorQ.size() > 0 && extraQ.size() > 0) {
@@ -129,17 +162,26 @@ public class MyXMLParser {
     /**
      * return true if the second character in the string is /
      * if true the tag is a closing tag
-     * @param tag
+     * @param tag tag to be checked
      * @return true if second character is /
      */
     private boolean isClosingTag(String tag) {
         return tag.charAt(1) == '/';
     }
 
+    /**
+     * check if a given tag/line is in proper XML format
+     * @param tag tag to checked for proper format
+     * @return true if the tag is in proper format
+     */
     private boolean isProperFormat(String tag) {
         return tag.charAt(0) == '<' && tag.charAt(tag.length() - 1) == '>';
     }
 
+    /**
+     * parse the XML file supplied to the program.
+     * System will exit (error code 1) if an improper file path is supplied.
+     */
     public void parseXMLFile() {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;

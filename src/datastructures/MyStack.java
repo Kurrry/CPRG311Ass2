@@ -5,6 +5,10 @@ import interfaces.StackADT;
 
 import java.util.EmptyStackException;
 
+/**
+ * enforces stack behavior on ArrayList parent datastructure
+ * @param <E> generic type that the stack will contain
+ */
 public class MyStack<E> extends MyArrayList<E> implements StackADT<E>, Iterator<E> {
 
     public MyStack() {}

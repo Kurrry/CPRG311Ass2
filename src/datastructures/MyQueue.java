@@ -7,11 +7,12 @@ import interfaces.QueueADT;
 import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
+/**
+ * enforces queue behavior on DLL parent datastructure
+ * @param <E> generic type that the queue will contain
+ */
 public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static final int topOfQueue = 0;
 
@@ -134,6 +135,10 @@ public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
         return returnStr.toString();
     }
 
+
+    /**
+     * private inner class QueueIterator for iterator() method
+     */
     private class QueueIterator implements Iterator<E> {
         private MyDLLNode<E> current;
         private QueueIterator(MyDLLNode<E> current) {
