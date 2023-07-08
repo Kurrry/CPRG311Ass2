@@ -247,7 +247,7 @@ public class MyXMLParser {
      * @return true if the tag is in proper format
      */
     private boolean isProperFormat(String tag) {
-        return tag.charAt(0) == '<' && tag.charAt(tag.length() - 1) == '>';
+        return tag.charAt(0) == '<' && tag.charAt(tag.length() - 1) == '>'; // && tag.indexOf('<') == tag.lastIndexOf('<') && tag.indexOf('>') == tag.lastIndexOf('>')
     }
 
 
