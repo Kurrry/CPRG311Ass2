@@ -1,5 +1,6 @@
 package utilities;
 
+import datastructures.MyArrayList;
 import datastructures.MyQueue;
 import datastructures.MyStack;
 import exceptions.EmptyQueueException;
@@ -27,6 +28,77 @@ public class MyXMLParser {
         stack = new MyStack<>();
         fileName = args[0].replaceAll("\"", "");
         parseXMLFile();
+    }
+
+    /**
+     * parse the XML file supplied to the program.
+     * System will exit (error code 1) if an improper file path is supplied.
+     */
+    public void parseXMLFile() {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                line = line.trim().replaceAll("\t", "");
+                if(!isProperFormat(line)) {
+                    System.out.println(line + ": is not in proper XML tag format.");
+                    continue;
+                }
+
+                if (isSelfClosingTag(line)) {
+                    continue;
+                }
+
+                if (!isClosingTag(line)) {
+                    pushStartTag(line);
+                } else {
+                    checkEndTag(line);
+                }
+            }
+
+            if(!stack.isEmpty()) {
+                cleanStack();
+            }
+
+            if(!extraQ.isEmpty() && !errorQ.isEmpty()) {
+                cleanBothQueues();
+            }
+
+            if(extraQ.isEmpty() ^ errorQ.isEmpty()) {
+                cleanQueue();
+            }
+        } catch (Exception ex) {
+            //System.out.println("Please enter a valid file path.");
+            ex.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    private void multiTagLine(String line) {
+        if(line.indexOf('>') == line.lastIndexOf('>')) return;
+
+        int indexClose = line.indexOf('>');
+        int indexOpen = line.indexOf('<');
+        MyArrayList<String> testList = new MyArrayList<>();
+
+        while(indexClose != line.lastIndexOf('>')) {
+            testList.add(line.substring(indexOpen, indexClose) + ">"); // <a>b></a></b>
+            indexOpen = line.indexOf('<', indexOpen+1);
+            indexClose = line.indexOf('>', indexClose+1);
+        }
+
+        testList.add(line.substring(indexOpen, indexClose) + ">");
+        for (int i = 0; i < testList.size(); i++) {
+            verifyTagStructure(0, testList.get(i)); //TODO
+        }
+        //TODO
+    }
+
+
+    private boolean verifyTagStructure(int index, String testList) {
+        if(testList.indexOf('<') != testList.lastIndexOf('<')) return false; // </a</b>
+        // <a>b> //TODO
+        return true;
     }
 
     /**
@@ -178,47 +250,5 @@ public class MyXMLParser {
         return tag.charAt(0) == '<' && tag.charAt(tag.length() - 1) == '>';
     }
 
-    /**
-     * parse the XML file supplied to the program.
-     * System will exit (error code 1) if an improper file path is supplied.
-     */
-    public void parseXMLFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            line = br.readLine();
-            while ((line = br.readLine()) != null) {
-                line = line.trim().replaceAll("\t", "");
-                if(!isProperFormat(line)) {
-                    System.out.println(line + ": is not in proper XML tag format.");
-                    continue;
-                }
 
-                if (isSelfClosingTag(line)) {
-                    continue;
-                }
-
-                if (!isClosingTag(line)) {
-                    pushStartTag(line);
-                } else {
-                    checkEndTag(line);
-                }
-            }
-
-            if(!stack.isEmpty()) {
-                cleanStack();
-            }
-
-            if(!extraQ.isEmpty() && !errorQ.isEmpty()) {
-                cleanBothQueues();
-            }
-
-            if(extraQ.isEmpty() ^ errorQ.isEmpty()) {
-                cleanQueue();
-            }
-        } catch (Exception ex) {
-            //System.out.println("Please enter a valid file path.");
-            ex.printStackTrace();
-            System.exit(1);
-        }
-    }
 }
