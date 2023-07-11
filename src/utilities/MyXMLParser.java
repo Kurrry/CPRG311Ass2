@@ -168,7 +168,7 @@ public class MyXMLParser {
                     index++;
                 }
                 if (matchFound) {
-                    for (int j = 0; j < index; j++) {
+                    for (int j = stack.size() - 1; j > index; j--) {
                         errorQ.enqueue(stack.pop().trim());
                     }
                     stack.pop();
