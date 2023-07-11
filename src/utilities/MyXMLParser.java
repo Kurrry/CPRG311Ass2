@@ -49,6 +49,10 @@ public class MyXMLParser {
                     continue;
                 }
 
+                /*if (isMultiTagLine(line)) {
+                    multiTagLine(line);
+                }*/
+
                 if (!isClosingTag(line)) {
                     pushStartTag(line);
                 } else {
@@ -74,8 +78,9 @@ public class MyXMLParser {
         }
     }
 
-    private void multiTagLine(String line) {
-        if(line.indexOf('>') == line.lastIndexOf('>')) return;
+    // Relic code below
+    /*private void multiTagLine(String line) {
+        if(!isMultiTagLine(line)) return;
 
         int indexClose = line.indexOf('>');
         int indexOpen = line.indexOf('<');
@@ -87,19 +92,20 @@ public class MyXMLParser {
             indexClose = line.indexOf('>', indexClose+1);
         }
 
-        testList.add(line.substring(indexOpen, indexClose) + ">");
-        for (int i = 0; i < testList.size(); i++) {
-            verifyTagStructure(0, testList.get(i)); //TODO
+        if(indexOpen > 0 && indexClose > 0) {
+            testList.add(line.substring(indexOpen, indexClose) + ">");
         }
-        //TODO
+        while(!testList.isEmpty()) {
+            if(!isClosingTag(testList.get(0))) pushStartTag(testList.remove(0));
+            else if (isClosingTag(testList.get(0))) checkEndTag(testList.remove(0));
+        }
+
     }
 
+    private boolean isMultiTagLine(String line) {
+        return !(line.indexOf('>') == line.lastIndexOf('>'));
+    }*/
 
-    private boolean verifyTagStructure(int index, String testList) {
-        if(testList.indexOf('<') != testList.lastIndexOf('<')) return false; // </a</b>
-        // <a>b> //TODO
-        return true;
-    }
 
     /**
      * check if a tag is self-closing
@@ -247,7 +253,8 @@ public class MyXMLParser {
      * @return true if the tag is in proper format
      */
     private boolean isProperFormat(String tag) {
-        return tag.charAt(0) == '<' && tag.charAt(tag.length() - 1) == '>'; // && tag.indexOf('<') == tag.lastIndexOf('<') && tag.indexOf('>') == tag.lastIndexOf('>')
+        return tag.charAt(0) == '<' && tag.charAt(tag.length() - 1) == '>'
+                && tag.indexOf('<') == tag.lastIndexOf('<') && tag.indexOf('>') == tag.lastIndexOf('>'); //
     }
 
 
