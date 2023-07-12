@@ -7,6 +7,7 @@ import java.util.EmptyStackException;
 
 /**
  * enforces stack behavior on ArrayList parent datastructure
+ * stack behavior is last in first out, or lifo
  * @param <E> generic type that the stack will contain
  */
 public class MyStack<E> extends MyArrayList<E> implements StackADT<E>, Iterator<E> {

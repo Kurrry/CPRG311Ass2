@@ -6,11 +6,13 @@ import java.util.NoSuchElementException;
 import interfaces.Iterator;
 import interfaces.ListADT;
 
+/**
+ * Doubly linked-list data structure can be traversed from head or tail node
+ * list structure is linear and nodes must point to next and previous
+ * @param <E> generic type that the doubly linked-list will contain
+ */
 public class MyDLL<E> implements ListADT<E>, Iterator<E> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private MyDLLNode<E> head, tail, itNode;
 	private int count;

@@ -1,17 +1,36 @@
 package datastructures;
 
+/**
+ * node class for use in MyDLL and MyQueue
+ * @param <E> generic type that the node will contain
+ */
 public class MyDLLNode<E> {
 	
 	private MyDLLNode<E> nextNode, prevNode;
 	private E element;
-	
+
+	/**
+	 * no arg constructor
+	 */
 	public MyDLLNode() {
 	}
-	
+
+	/**
+	 * constructor
+	 * node will not point to another node
+	 * @param element generic element the node will contain
+	 */
 	public MyDLLNode(E element) {
 		this.element = element;
 	}
-	
+
+	/**
+	 * constructor
+	 * node will point to previous and next nodes
+	 * @param element generic element to node will contain
+	 * @param prevNode pointer to previous node
+	 * @param nextNode pointer to next node
+	 */
 	public MyDLLNode(E element, MyDLLNode<E> prevNode, MyDLLNode<E> nextNode) {
 		this.element = element;
 		this.prevNode = prevNode;

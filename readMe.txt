@@ -1,3 +1,5 @@
+Authors: Avery Johnson-Dhillon, John Holloway, Eric Gagne, Joshua Lokhorst
+
 How to install and use:
 Using command line type "java -jar Parser.jar <some file location>" with everything between the <> being placeholders.
 please do not include <> in arguments.

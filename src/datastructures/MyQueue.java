@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 
 /**
  * enforces queue behavior on DLL parent datastructure
+ * queue behavior is first in first out, or fifo
  * @param <E> generic type that the queue will contain
  */
 public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
@@ -125,6 +126,11 @@ public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
         return new QueueIterator(this.getHead());
     }
 
+    /**
+     * Method to return all elements in the MyQueue as a single string with each element being separated by a blank space
+     * @return returnStr.toString()
+     * 			A string listing all elements in the MyQueue
+     */
     @Override
     public String toString() {
         Iterator<E> it = this.iterator();
@@ -159,7 +165,8 @@ public class MyQueue<E> extends MyDLL<E> implements QueueADT<E>, Iterator<E> {
             return current.getElement();
         }
     }
-    
+
+    //relic
     /*private class QueueIterator implements Iterator<E> {
         private MyDLLNode<E> current;
         private QueueIterator(MyDLLNode<E> current) {this.current = current;}
