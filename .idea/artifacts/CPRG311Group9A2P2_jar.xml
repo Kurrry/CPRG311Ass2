@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CPRG311Group9A2P2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CPRG311Group9A2P2_jar</output-path>
+    <root id="archive" name="CPRG311Group9A2P2.jar">
+      <element id="module-output" name="CPRG311Group9A2P2" />
+    </root>
+  </artifact>
+</component>
