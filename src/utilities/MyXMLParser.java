@@ -1,6 +1,5 @@
 package utilities;
 
-import datastructures.MyArrayList;
 import datastructures.MyQueue;
 import datastructures.MyStack;
 import exceptions.EmptyQueueException;
@@ -37,7 +36,7 @@ public class MyXMLParser {
     public void parseXMLFile() {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
-            line = br.readLine();
+            br.readLine();
             while ((line = br.readLine()) != null) {
                 line = line.trim().replaceAll("\t", "");
                 if(!isProperFormat(line)) {
@@ -48,10 +47,6 @@ public class MyXMLParser {
                 if (isSelfClosingTag(line)) {
                     continue;
                 }
-
-                /*if (isMultiTagLine(line)) {
-                    multiTagLine(line);
-                }*/
 
                 if (!isClosingTag(line)) {
                     pushStartTag(line);
@@ -72,40 +67,10 @@ public class MyXMLParser {
                 cleanQueue();
             }
         } catch (Exception ex) {
-            //System.out.println("Please enter a valid file path.");
             ex.printStackTrace();
             System.exit(1);
         }
     }
-
-    // Relic code below
-    /*private void multiTagLine(String line) {
-        if(!isMultiTagLine(line)) return;
-
-        int indexClose = line.indexOf('>');
-        int indexOpen = line.indexOf('<');
-        MyArrayList<String> testList = new MyArrayList<>();
-
-        while(indexClose != line.lastIndexOf('>')) {
-            testList.add(line.substring(indexOpen, indexClose) + ">"); // <a>b></a></b>
-            indexOpen = line.indexOf('<', indexOpen+1);
-            indexClose = line.indexOf('>', indexClose+1);
-        }
-
-        if(indexOpen > 0 && indexClose > 0) {
-            testList.add(line.substring(indexOpen, indexClose) + ">");
-        }
-        while(!testList.isEmpty()) {
-            if(!isClosingTag(testList.get(0))) pushStartTag(testList.remove(0));
-            else if (isClosingTag(testList.get(0))) checkEndTag(testList.remove(0));
-        }
-
-    }
-
-    private boolean isMultiTagLine(String line) {
-        return !(line.indexOf('>') == line.lastIndexOf('>'));
-    }*/
-
 
     /**
      * check if a tag is self-closing
@@ -195,10 +160,10 @@ public class MyXMLParser {
         boolean errorQEmpty = errorQ.size() == 0;
 
         if(errorQEmpty) {
-            System.out.println("extraQ purge");
+            System.out.println("Tags only remained in extra queue. Queue purge:");
             extraQ.dequeueAll();
         } else {
-            System.out.println("errorQ purge");
+            System.out.println("Tags only remained in error queue. Queue purge:");
             errorQ.dequeueAll();
         }
     }
@@ -219,17 +184,17 @@ public class MyXMLParser {
                     errorQ.dequeue();
                     extraQ.dequeue();
                 } else {
-                    System.out.println(errorQ.dequeue() + ": is error");
+                    System.out.println(errorQ.dequeue() + ": tag is error");
                 }
             }
 
             if (errorQ.size() > 0) {
-                System.out.println("errorQ purge both queues");
+                System.out.println("Tags left in error queue:");
                 errorQ.dequeueAll();
             }
 
             if (extraQ.size() > 0) {
-                System.out.println("extraQ purge both queues");
+                System.out.println("Tags left in extra queue:");
                 extraQ.dequeueAll();
             }
         } catch (Exception ex) {
@@ -259,3 +224,32 @@ public class MyXMLParser {
 
 
 }
+
+
+// Relic code below
+    /*private void multiTagLine(String line) {
+        if(!isMultiTagLine(line)) return;
+
+        int indexClose = line.indexOf('>');
+        int indexOpen = line.indexOf('<');
+        MyArrayList<String> testList = new MyArrayList<>();
+
+        while(indexClose != line.lastIndexOf('>')) {
+            testList.add(line.substring(indexOpen, indexClose) + ">"); // <a>b></a></b>
+            indexOpen = line.indexOf('<', indexOpen+1);
+            indexClose = line.indexOf('>', indexClose+1);
+        }
+
+        if(indexOpen > 0 && indexClose > 0) {
+            testList.add(line.substring(indexOpen, indexClose) + ">");
+        }
+        while(!testList.isEmpty()) {
+            if(!isClosingTag(testList.get(0))) pushStartTag(testList.remove(0));
+            else if (isClosingTag(testList.get(0))) checkEndTag(testList.remove(0));
+        }
+
+    }
+
+    private boolean isMultiTagLine(String line) {
+        return !(line.indexOf('>') == line.lastIndexOf('>'));
+    }*/

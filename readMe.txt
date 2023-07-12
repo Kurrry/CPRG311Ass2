@@ -6,5 +6,7 @@ Completeness: 100%
 
 Deficiencies or missing functionality:
 This parser is extremely primitive and it only parses whether tags are valid, not attributes or xml rules.
-This parser struggles with complex syntax errors with multiple tags on a single line, such as "<a><b>/a></b>".
-This parser is optimal if one line contains a single tag, either opening or closing/self-closing. 
+This parser is optimal if one line contains a single tag, either opening or closing/self-closing.
+This parser struggles if the above formatting rules are not maintained.
+This parser will not display the line on which the error occurs, merely the name of the tag that is causing the error.
+Similarly, any extra tags will not have line numbers displayed.
